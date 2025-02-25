@@ -6,6 +6,7 @@ import org.solvd.f_v_algo.PathProcessor;
 
 import java.io.File;
 import java.net.URL;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -34,6 +35,6 @@ public class Main {
         System.out.println(mapMainNodes.get(5L).getBestDist().get(5L).getFullPath());
         System.out.println(mapMainNodes.get(999L).getBestDist().get(5L).getFullPath());
         System.out.println(mapMainNodes.get(999L).getBestDist().get(5L).getWeight());
-        processor.parseFullPath(new EdgeNode());
+        List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());
     }
 }

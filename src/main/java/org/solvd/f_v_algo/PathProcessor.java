@@ -36,7 +36,7 @@ public class PathProcessor {
         return addressNodeHashMap;
     }
 
-    public Map<Long, AddressNode> addEdgesToAddressNodes(Map<Long, AddressNode> adressNodes, File fileEdges) {
+    public Map<Long, AddressNode> addEdgesToAddressNodes(Map<Long, AddressNode> addressNodes, File fileEdges) {
         try {
             FileReader fileReader = new FileReader(fileEdges, StandardCharsets.UTF_8);
 
@@ -47,14 +47,14 @@ public class PathProcessor {
 
             List<EdgeNode> edgeNodes = csvToBean.parse();
             for (EdgeNode edgeNode : edgeNodes) {
-                edgeNode.setFullPath(String.format("/%s/%s/", adressNodes.get(edgeNode.getFrom()).getId(), adressNodes.get(edgeNode.getTo()).getId()));
+                edgeNode.setFullPath(String.format("/%s/%s/", addressNodes.get(edgeNode.getFrom()).getId(), addressNodes.get(edgeNode.getTo()).getId()));
                 EdgeNode reversed = edgeNode.clone();
                 reversed.setFrom(edgeNode.getTo());
                 reversed.setTo(edgeNode.getFrom());
-                reversed.setFullPath(String.format("/%s/%s/", adressNodes.get(edgeNode.getTo()).getId(), adressNodes.get(edgeNode.getFrom()).getId()));
+                reversed.setFullPath(String.format("/%s/%s/", addressNodes.get(edgeNode.getTo()).getId(), addressNodes.get(edgeNode.getFrom()).getId()));
 
-                adressNodes.get(edgeNode.getFrom()).getBestDist().put(edgeNode.getTo(), edgeNode);
-                adressNodes.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
+                addressNodes.get(edgeNode.getFrom()).getBestDist().put(edgeNode.getTo(), edgeNode);
+                addressNodes.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
             }
 
         } catch (FileNotFoundException e) {
@@ -63,7 +63,7 @@ public class PathProcessor {
             throw new RuntimeException(e);
         }
 
-        return adressNodes;
+        return addressNodes;
 
     }
 
@@ -71,13 +71,19 @@ public class PathProcessor {
         return addEdgesToAddressNodes(readAddressNodesFromCsv(mainNodes), edgeNodes);
     }
 
-    public Map<Long, AddressNode> parseAddressNodes(List<AddressNode> addressNodes, List<EdgeNode> edgeNodes) {
+    public Map<Long, AddressNode> addEdgesToAddressNodes(List<AddressNode> addressNodes, List<EdgeNode> edgeNodes) {
         HashMap<Long, AddressNode> addressNodeHashMap = new HashMap<>();
         addressNodes.stream().peek(System.out::println).forEach(node -> addressNodeHashMap.put(node.getId(), node));
 
         for (EdgeNode edgeNode : edgeNodes) {
+            edgeNode.setFullPath(String.format("/%s/%s/", addressNodeHashMap.get(edgeNode.getFrom()).getId(), addressNodeHashMap.get(edgeNode.getTo()).getId()));
+            EdgeNode reversed = edgeNode.clone();
+            reversed.setFrom(edgeNode.getTo());
+            reversed.setTo(edgeNode.getFrom());
+            reversed.setFullPath(String.format("/%s/%s/", addressNodeHashMap.get(edgeNode.getTo()).getId(), addressNodeHashMap.get(edgeNode.getFrom()).getId()));
+
             addressNodeHashMap.get(edgeNode.getFrom()).getBestDist().put(edgeNode.getTo(), edgeNode);
-            addressNodeHashMap.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), edgeNode);
+            addressNodeHashMap.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
         }
         return addressNodeHashMap;
     }
