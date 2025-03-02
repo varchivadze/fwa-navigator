@@ -1,27 +1,29 @@
 package org.solvd.model;
 
+import java.util.List;
+
 public class Route {
-    private String startAddress;
-    private String destinationAddress;
-    private String path;
+    private final Address startAddress;
+    private final Address destinationAddress;
+    private List<String> path;
     private double distance;
 
-    public Route(String startAddress, String destinationAddress, String path, double distance) {
+    public Route(Address startAddress, Address destinationAddress, List<String> path, double distance) {
         this.startAddress = startAddress;
         this.destinationAddress = destinationAddress;
         this.path = path;
         this.distance = distance;
     }
 
-    public String getStartAddress() {
+    public Address getStartAddress() {
         return startAddress;
     }
 
-    public String getDestinationAddress() {
+    public Address getDestinationAddress() {
         return destinationAddress;
     }
 
-    public String getPath() {
+    public List<String> getPath() {
         return path;
     }
 

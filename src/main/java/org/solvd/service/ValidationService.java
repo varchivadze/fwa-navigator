@@ -1,18 +1,23 @@
 package org.solvd.service;
 
-import java.util.Set;
+import org.solvd.database.AddressStore;
+import org.solvd.model.Address;
+import org.solvd.model.AddressDescription;
 
 public class ValidationService {
-    private AlgorithmService algorithmService;
+    private final AddressStore addressStore;
 
-    public ValidationService(AlgorithmService algorithmService) {
-        this.algorithmService = algorithmService;
+    public ValidationService(AddressStore addressStore) {
+        this.addressStore = addressStore;
     }
 
-    public boolean isValidAddress(String address) {
-        Set<String> availableAddresses = algorithmService.getAvailableAddresses();
-        System.out.println("Available addresses: " + availableAddresses);
-        System.out.println("Input address: " + address.trim().toLowerCase());
-        return availableAddresses.contains(address.trim().toLowerCase());
+    public Address validateAdressInput(AddressDescription addressInput) {
+        return addressStore.lookup(
+                addressInput.getCountry().trim().toLowerCase(),
+                addressInput.getCity().trim().toLowerCase(),
+                addressInput.getStreet().trim().toLowerCase(),
+                addressInput.getUnit().trim().toLowerCase()
+        );
     }
+
 }

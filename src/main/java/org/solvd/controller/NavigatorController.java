@@ -1,36 +1,47 @@
 package org.solvd.controller;
 
+import org.solvd.database.AddressStore;
+import org.solvd.database.AddressStoreFake;
+import org.solvd.model.Address;
 import org.solvd.model.Route;
+import org.solvd.model.AddressDescription;
 import org.solvd.service.AlgorithmService;
+import org.solvd.service.PathProcessor;
 import org.solvd.service.UserInputHandler;
 import org.solvd.service.ValidationService;
 import org.solvd.view.OutputFormatter;
 
 public class NavigatorController {
     private UserInputHandler userInputHandler;
+
     private ValidationService validationService;
     private AlgorithmService algorithmService;
     private OutputFormatter outputFormatter;
 
     public NavigatorController() {
-        this.algorithmService = new AlgorithmService();
-        this.validationService = new ValidationService(algorithmService);
-        this.userInputHandler = new UserInputHandler();
-        this.outputFormatter = new OutputFormatter();
+        AddressStore addressStore = new AddressStoreFake();
+        this.userInputHandler = new UserInputHandler(addressStore);
+        this.validationService = new ValidationService(addressStore);
+        PathProcessor pathProcessor = new PathProcessor(addressStore);
+        this.algorithmService = new AlgorithmService(pathProcessor);
+        this.outputFormatter = new OutputFormatter(addressStore);
     }
 
     public void start() {
         System.out.println("= FWA NAVIGATOR =");
 
-        String startAddress = userInputHandler.getStartAddress();
-        String destinationAddress = userInputHandler.getDestinationAddress();
+        AddressDescription startAddressInput = userInputHandler.getAddress("Please provide start point: ");
+        AddressDescription destinationAddressInput = userInputHandler.getAddress("Please provide end point: ");
 
-        if (!validationService.isValidAddress(startAddress)) {
+        Address startAddress = validationService.validateAdressInput(startAddressInput);
+        Address destinationAddress = validationService.validateAdressInput(destinationAddressInput);
+
+        if (startAddress == null) {
             System.out.println("ERROR: Incorrect Start Address");
             return;
         }
 
-        if (!validationService.isValidAddress(destinationAddress)) {
+        if (destinationAddress == null) {
             System.out.println("ERROR: Incorrect Destination Address");
             return;
         }

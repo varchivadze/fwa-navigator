@@ -2,8 +2,10 @@ package org.solvd.service;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.solvd.database.AddressStore;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
+import org.solvd.model.IntersectionConnection;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,39 +18,34 @@ import java.util.List;
 import java.util.Map;
 
 public class PathProcessor {
+    private final AddressStore addressStore;
 
-    public Map<Long, AddressNode> readAddressNodesFromCsv(File file) {
-        HashMap<Long, AddressNode> addressNodeHashMap = new HashMap<>();
-        try {
-            FileReader fileReader = new FileReader(file);
+    public PathProcessor(AddressStore addressStore) {
+        this.addressStore = addressStore;
+    }
 
-            CsvToBean<AddressNode> csvToBean = new CsvToBeanBuilder<AddressNode>(fileReader)
-                    .withType(AddressNode.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
-
-            List<AddressNode> addressNodes = csvToBean.parse();
-
-
-            addressNodes.stream().peek(System.out::println).forEach(node -> addressNodeHashMap.put(node.getId(), node));
-
-        } catch (IOException e) {
-            System.out.println("Could not read file " + file.getPath() + e.getMessage());
+    public Map<String, AddressNode> initAddressNodes() {
+        Map<String, AddressNode> addressNodeHashMap = new HashMap<>();
+        List<String> allIntersectionIds = addressStore.getAllIntersections();
+        for (String intersectionId : allIntersectionIds) {
+            addressNodeHashMap.put(intersectionId, new AddressNode(intersectionId));
         }
         return addressNodeHashMap;
     }
 
-    public Map<Long, AddressNode> addEdgesToAddressNodes(Map<Long, AddressNode> addressNodes, File fileEdges) {
-        try {
-            FileReader fileReader = new FileReader(fileEdges, StandardCharsets.UTF_8);
+    public Map<String, AddressNode> addEdgesToAddressNodes(Map<String, AddressNode> addressNodes) {
+        List<IntersectionConnection> allConnections = addressStore.getAllConnections();
 
-            CsvToBean<EdgeNode> csvToBean = new CsvToBeanBuilder<EdgeNode>(fileReader)
-                    .withType(EdgeNode.class)
-                    .withIgnoreLeadingWhiteSpace(true)
-                    .build();
 
-            List<EdgeNode> edgeNodes = csvToBean.parse();
-            for (EdgeNode edgeNode : edgeNodes) {
+
+            for (IntersectionConnection connection : allConnections) {
+                EdgeNode edgeNode = new EdgeNode();
+                edgeNode.setId(connection.getEdgeId());
+                edgeNode.setFrom(connection.getFromId());
+                edgeNode.setTo(connection.getToId());
+                edgeNode.setWeight(connection.getWeight());
+
+                //todo change path from / delimiter String to List of String IDs
                 edgeNode.setFullPath(String.format("/%s/%s/", addressNodes.get(edgeNode.getFrom()).getId(), addressNodes.get(edgeNode.getTo()).getId()));
                 EdgeNode reversed = edgeNode.clone();
                 reversed.setFrom(edgeNode.getTo());
@@ -58,23 +55,16 @@ public class PathProcessor {
                 addressNodes.get(edgeNode.getFrom()).getBestDist().put(edgeNode.getTo(), edgeNode);
                 addressNodes.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
             }
-
-        } catch (FileNotFoundException e) {
-            throw new RuntimeException(e);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-
         return addressNodes;
 
     }
 
-    public Map<Long, AddressNode> parseAddressNodes(File mainNodes, File edgeNodes) {
-        return addEdgesToAddressNodes(readAddressNodesFromCsv(mainNodes), edgeNodes);
+    public Map<String, AddressNode> parseAddressNodes() {
+        return addEdgesToAddressNodes(initAddressNodes());
     }
 
-    public Map<Long, AddressNode> addEdgesToAddressNodes(List<AddressNode> addressNodes, List<EdgeNode> edgeNodes) {
-        HashMap<Long, AddressNode> addressNodeHashMap = new HashMap<>();
+/*    public Map<String , AddressNode> addEdgesToAddressNodes(List<AddressNode> addressNodes, List<EdgeNode> edgeNodes) {
+        HashMap<String, AddressNode> addressNodeHashMap = new HashMap<>();
         addressNodes.stream().peek(System.out::println).forEach(node -> addressNodeHashMap.put(node.getId(), node));
 
         for (EdgeNode edgeNode : edgeNodes) {
@@ -88,12 +78,12 @@ public class PathProcessor {
             addressNodeHashMap.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
         }
         return addressNodeHashMap;
-    }
+    }*/
 
-    public void FWParser(Map<Long, AddressNode> addressNodes) {
-        for (Map.Entry<Long, AddressNode> med : addressNodes.entrySet()) {
-            for (Map.Entry<Long, AddressNode> start : addressNodes.entrySet()) {
-                for (Map.Entry<Long, AddressNode> end : addressNodes.entrySet()) {
+    public void FWParser(Map<String, AddressNode> addressNodes) {
+        for (Map.Entry<String, AddressNode> med : addressNodes.entrySet()) {
+            for (Map.Entry<String, AddressNode> start : addressNodes.entrySet()) {
+                for (Map.Entry<String, AddressNode> end : addressNodes.entrySet()) {
 
                     EdgeNode startToMed = start.getValue().getBestDist().get(med.getValue().getId());
                     EdgeNode medToEnd = med.getValue().getBestDist().get(end.getValue().getId());

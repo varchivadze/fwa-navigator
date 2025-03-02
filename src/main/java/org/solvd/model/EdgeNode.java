@@ -4,16 +4,11 @@ import com.opencsv.bean.CsvBindByName;
 
 public class EdgeNode implements Cloneable {
 
-    @CsvBindByName(column = "ID")
-    private Long id;
-    @CsvBindByName(column = "From")
-    private Long from;
-    @CsvBindByName(column = "To")
-    private Long to;
-    @CsvBindByName(column = "Weight (km)")
+    private String id;
+    private String from;
+    private String to;
     private double weight;
 
-    @CsvBindByName(column = "path")
     private String fullPath;
 
     private String busses;
@@ -27,11 +22,11 @@ public class EdgeNode implements Cloneable {
         }
     }
 
-    public Long getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -51,19 +46,19 @@ public class EdgeNode implements Cloneable {
         this.busses = busses;
     }
 
-    public Long getFrom() {
+    public String getFrom() {
         return from;
     }
 
-    public void setFrom(Long from) {
+    public void setFrom(String from) {
         this.from = from;
     }
 
-    public Long getTo() {
+    public String getTo() {
         return to;
     }
 
-    public void setTo(Long to) {
+    public void setTo(String to) {
         this.to = to;
     }
 
