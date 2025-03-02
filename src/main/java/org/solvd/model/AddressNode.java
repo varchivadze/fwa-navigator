@@ -1,9 +1,10 @@
-package org.solvd.f_v_algo;
+package org.solvd.model;
+
+import com.opencsv.bean.CsvBindByName;
 
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
-import com.opencsv.bean.CsvBindByName;
 
 public class AddressNode {
 
@@ -105,12 +106,12 @@ public class AddressNode {
     }
 
     @Override
-    public int hashCode(){
+    public int hashCode() {
         return Objects.hash(id, street, city, country, unit);
     }
 
     @Override
-    public boolean equals(Object object){
+    public boolean equals(Object object) {
         if (this == object) {
             return true;
         }

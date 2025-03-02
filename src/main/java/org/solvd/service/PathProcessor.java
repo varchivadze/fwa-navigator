@@ -1,7 +1,9 @@
-package org.solvd.f_v_algo;
+package org.solvd.service;
 
 import com.opencsv.bean.CsvToBean;
 import com.opencsv.bean.CsvToBeanBuilder;
+import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -120,13 +122,13 @@ public class PathProcessor {
     }
 
     public List<List<Integer>> parseFullPath(EdgeNode edgeNode) {
-        List<List<Integer>> listOfNodes= new ArrayList<>();
+        List<List<Integer>> listOfNodes = new ArrayList<>();
         List<Integer> temp = new ArrayList<>();
         for (String character : edgeNode.getFullPath().split("/")) {
             if ((character == null || character.isEmpty())) {
                 if (!temp.isEmpty()) {
-                listOfNodes.add(new ArrayList<>(temp));
-                temp.clear();
+                    listOfNodes.add(new ArrayList<>(temp));
+                    temp.clear();
                 }
             } else {
                 temp.add(Integer.parseInt(character));
@@ -135,5 +137,4 @@ public class PathProcessor {
         System.out.println(listOfNodes);
         return listOfNodes;
     }
-
 }

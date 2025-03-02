@@ -1,7 +1,6 @@
-package org.solvd.f_v_algo;
-import com.opencsv.bean.CsvBindByName;
+package org.solvd.model;
 
-import java.util.List;
+import com.opencsv.bean.CsvBindByName;
 
 public class EdgeNode implements Cloneable {
 

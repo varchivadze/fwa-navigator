@@ -1,8 +1,8 @@
 package org.solvd;
 
-import org.solvd.f_v_algo.AddressNode;
-import org.solvd.f_v_algo.EdgeNode;
-import org.solvd.f_v_algo.PathProcessor;
+import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
+import org.solvd.service.PathProcessor;
 
 import java.io.File;
 import java.net.URL;
