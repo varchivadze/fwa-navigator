@@ -7,6 +7,7 @@ import org.solvd.service.AlgorithmService;
 import java.util.Map;
 
 public class InitDumpCalculation {
+
     public static final AlgorithmService algorithmService = new AlgorithmService();
 
     public static void mapNodes() {
