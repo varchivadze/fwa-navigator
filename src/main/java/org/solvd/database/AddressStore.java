@@ -5,15 +5,15 @@ import org.solvd.model.EdgeNode;
 
 import java.util.List;
 
-public interface AddressStore {
+public interface AddressStore<T> {
 
-    void create(AddressNode address);
+    void create(T address);
 
-    AddressNode read(AddressNode Address);
+    AddressNode read(T address);
 
-    void create(EdgeNode edge);
+    void update(T address);
 
-    EdgeNode read(EdgeNode edge);
+    void delete(T address);
 
     AddressNode lookup(String country, String city, String street, String unit);
 
@@ -24,7 +24,5 @@ public interface AddressStore {
     List<String> getValidStreets(String country, String city);
 
     List<String> getValidUnits(String country, String city, String street);
-
-    List<String> getAllIntersections();
 
 }
