@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class AlgorithmService {
     private PathProcessor processor;
-    private Map<Long, AddressNode> mapMainNodes;
+    public Map<Long, AddressNode> mapMainNodes;
 
     public AlgorithmService() {
         this.processor = new PathProcessor();
