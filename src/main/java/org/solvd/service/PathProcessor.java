@@ -95,6 +95,15 @@ public class PathProcessor {
             for (Map.Entry<Long, AddressNode> start : addressNodes.entrySet()) {
                 for (Map.Entry<Long, AddressNode> end : addressNodes.entrySet()) {
 
+                    if (start.getValue().getId().equals(end.getValue().getId())) {
+                        EdgeNode newPath = new EdgeNode();
+                        newPath.setFrom(start.getValue().getId());
+                        newPath.setTo(end.getValue().getId());
+                        newPath.setWeight(0);
+                        start.getValue().getBestDist().put(end.getValue().getId(), newPath);
+                        continue;
+                    }
+
                     EdgeNode startToMed = start.getValue().getBestDist().get(med.getValue().getId());
                     EdgeNode medToEnd = med.getValue().getBestDist().get(end.getValue().getId());
                     EdgeNode startToEnd = start.getValue().getBestDist().get(end.getValue().getId());
