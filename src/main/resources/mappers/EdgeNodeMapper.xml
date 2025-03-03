@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.solvd.database.mapper.EdgeMapper">
+
+    <insert id="insert" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO edges (`from`, `to`, weight, fullPath, busses)
+        VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
+    </insert>
+
+    <select id="findById" parameterType="long" resultType="org.solvd.model.EdgeNode">
+        SELECT * FROM edges WHERE id = #{id}
+    </select>
+
+    <update id="update" parameterType="org.solvd.model.EdgeNode">
+        UPDATE edges
+        SET `from` = #{from}, `to` = #{to}, weight = #{weight}, fullPath = #{fullPath}, busses = #{busses}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM edges WHERE id = #{id}
+    </delete>
+
+</mapper>
