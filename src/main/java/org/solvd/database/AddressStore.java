@@ -1,10 +1,19 @@
 package org.solvd.database;
 
 import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
 
 import java.util.List;
 
 public interface AddressStore {
+
+    void create(AddressNode address);
+
+    AddressNode read(AddressNode Address);
+
+    void create(EdgeNode edge);
+
+    EdgeNode read(EdgeNode edge);
 
     AddressNode lookup(String country, String city, String street, String unit);
 
