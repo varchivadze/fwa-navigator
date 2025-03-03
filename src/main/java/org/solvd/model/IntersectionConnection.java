@@ -5,13 +5,19 @@ public class IntersectionConnection {
     private final String fromId;
     private final String toId;
     private final double weight;
+    private final String routes;
 
 
-    public IntersectionConnection(String edgeId, String fromId, String toId, double weight) {
+    public IntersectionConnection(String edgeId, String fromId, String toId, double weight, String routes) {
         this.edgeId = edgeId;
         this.fromId = fromId;
         this.toId = toId;
         this.weight = weight;
+        this.routes = routes;
+    }
+
+    public String getRoutes() {
+        return routes;
     }
 
     public String getEdgeId() {

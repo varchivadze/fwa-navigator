@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <environments default="development">
+        <environment id="development">
+            <transactionManager type="JDBC" />
+            <dataSource type="POOLED">
+                <property name="driver" value="org.xbib.jdbc.csv.CsvDriver" />
+                <property name="url" value="jdbc:xbib:csv:configs" />
+            </dataSource>
+        </environment>
+    </environments>
+
+    <mappers>
+        <mapper class="mappers.EmployeeMapper.xml" />
+        <mapper class="mappers.ClientMapper.xml" />
+        <mapper class="mappers.ConsultantMapper.xml" />
+        <mapper class="mappers.ManagerMapper.xml" />
+        <mapper class="mappers.ProjectMapper.xml" />
+    </mappers>
+</configuration>

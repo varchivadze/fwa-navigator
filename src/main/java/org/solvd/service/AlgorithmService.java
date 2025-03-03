@@ -7,28 +7,21 @@ import org.solvd.model.Route;
 
 import java.io.File;
 import java.net.URL;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 public class AlgorithmService {
     private PathProcessor processor;
-    private Map<Long, AddressNode> mapMainNodes;
 
     public AlgorithmService(PathProcessor processor) {
         this.processor = processor;
-        loadGraphData();
     }
 
-    private void loadGraphData() {
-
-            this.mapMainNodes = processor.parseAddressNodes();
-            processor.FWParser(mapMainNodes); // Floyd-Warshall
-
-    }
-
-    public Route calculateRoute(Address startAddress, Address destinationAddress) {
-
+    public Route calculateRoute(Address startAddress, Address destinationAddress, String transportType) {
+        Map<String, AddressNode> mapMainNodes = processor.parseAddressNodes(transportType);
+        processor.FWParser(mapMainNodes); // Floyd-Warshall
         EdgeNode bestPath = mapMainNodes
                 .get(startAddress.getNearestIntersectionId())
                 .getBestDist()

@@ -10,14 +10,17 @@ public interface AddressStore {
 
     AddressDescription getById(String addressId);
 
-    Address lookup(String county, String city, String street, String unit);
+    Address lookup(String country, String city, String street, String unit);
 
     List<String> getValidCountries();
 
     List<String> getValidCities(String country);
-    //todo city, streets
+
+    List<String> getValidStreets(String country, String city);
+
+    List<String> getValidUnits(String country, String city, String street);
 
     List<String> getAllIntersections();
 
-    List<IntersectionConnection> getAllConnections();
+    List<IntersectionConnection> getAllConnections(String transportType);
 }

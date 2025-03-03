@@ -1,4 +1,4 @@
-ID,Street Address,City,Country,Unit,Type,Parent,Latitude,Longitude
+ID,Street_Address,City,Country,Unit,Type,Parent,Latitude,Longitude
 1,ulica Widok,Warsaw,RP,60,Main Node,,52.266908029790834,21.00176692581363
 2,aleja Klasztorna,Warsaw,RP,124,Main Node,,52.26410967826448,21.037133803653944
 3,al. Sarnia,Warsaw,RP,345,Main Node,,52.29947572864069,21.195013423023802

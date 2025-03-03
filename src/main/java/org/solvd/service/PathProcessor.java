@@ -11,11 +11,11 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class PathProcessor {
     private final AddressStore addressStore;
@@ -33,9 +33,8 @@ public class PathProcessor {
         return addressNodeHashMap;
     }
 
-    public Map<String, AddressNode> addEdgesToAddressNodes(Map<String, AddressNode> addressNodes) {
-        List<IntersectionConnection> allConnections = addressStore.getAllConnections();
-
+    public Map<String, AddressNode> addEdgesToAddressNodes(Map<String, AddressNode> addressNodes, String transportType) {
+        List<IntersectionConnection> allConnections = addressStore.getAllConnections(transportType);
 
 
             for (IntersectionConnection connection : allConnections) {
@@ -45,12 +44,11 @@ public class PathProcessor {
                 edgeNode.setTo(connection.getToId());
                 edgeNode.setWeight(connection.getWeight());
 
-                //todo change path from / delimiter String to List of String IDs
-                edgeNode.setFullPath(String.format("/%s/%s/", addressNodes.get(edgeNode.getFrom()).getId(), addressNodes.get(edgeNode.getTo()).getId()));
+                edgeNode.setFullPath(Arrays.asList(edgeNode.getFrom(),edgeNode.getTo()));
                 EdgeNode reversed = edgeNode.clone();
                 reversed.setFrom(edgeNode.getTo());
                 reversed.setTo(edgeNode.getFrom());
-                reversed.setFullPath(String.format("/%s/%s/", addressNodes.get(edgeNode.getTo()).getId(), addressNodes.get(edgeNode.getFrom()).getId()));
+                edgeNode.setFullPath(Arrays.asList(edgeNode.getTo(),edgeNode.getFrom()));
 
                 addressNodes.get(edgeNode.getFrom()).getBestDist().put(edgeNode.getTo(), edgeNode);
                 addressNodes.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
@@ -59,26 +57,15 @@ public class PathProcessor {
 
     }
 
-    public Map<String, AddressNode> parseAddressNodes() {
-        return addEdgesToAddressNodes(initAddressNodes());
+    public Map<String, AddressNode> parseAddressNodes(String transportType) {
+        return addEdgesToAddressNodes(initAddressNodes(), transportType);
     }
 
-/*    public Map<String , AddressNode> addEdgesToAddressNodes(List<AddressNode> addressNodes, List<EdgeNode> edgeNodes) {
-        HashMap<String, AddressNode> addressNodeHashMap = new HashMap<>();
-        addressNodes.stream().peek(System.out::println).forEach(node -> addressNodeHashMap.put(node.getId(), node));
-
-        for (EdgeNode edgeNode : edgeNodes) {
-            edgeNode.setFullPath(String.format("/%s/%s/", addressNodeHashMap.get(edgeNode.getFrom()).getId(), addressNodeHashMap.get(edgeNode.getTo()).getId()));
-            EdgeNode reversed = edgeNode.clone();
-            reversed.setFrom(edgeNode.getTo());
-            reversed.setTo(edgeNode.getFrom());
-            reversed.setFullPath(String.format("/%s/%s/", addressNodeHashMap.get(edgeNode.getTo()).getId(), addressNodeHashMap.get(edgeNode.getFrom()).getId()));
-
-            addressNodeHashMap.get(edgeNode.getFrom()).getBestDist().put(edgeNode.getTo(), edgeNode);
-            addressNodeHashMap.get(edgeNode.getTo()).getBestDist().put(edgeNode.getFrom(), reversed);
-        }
-        return addressNodeHashMap;
-    }*/
+    private static List<String> joinLists(List<String> list1, List<String> list2){
+        List<String> combined = Stream.concat(list1.stream(), list2.stream())
+                .collect(Collectors.toList());
+        return combined;
+    }
 
     public void FWParser(Map<String, AddressNode> addressNodes) {
         for (Map.Entry<String, AddressNode> med : addressNodes.entrySet()) {
@@ -98,7 +85,7 @@ public class PathProcessor {
                             newPath.setFrom(start.getValue().getId());
                             newPath.setTo(end.getValue().getId());
                             newPath.setWeight(newDistance);
-                            newPath.setFullPath(startToMed.getFullPath() + medToEnd.getFullPath());
+                            newPath.setFullPath(joinLists(startToMed.getFullPath(), medToEnd.getFullPath()));
                             if (secondBestStartToEnd == null || secondBestStartToEnd.getWeight() > newDistance) {
                                 start.getValue().getSecondBestDist().put(end.getValue().getId(), start.getValue().getBestDist().get(end.getValue().getId()));
                             }
@@ -109,22 +96,5 @@ public class PathProcessor {
                 }
             }
         }
-    }
-
-    public List<List<Integer>> parseFullPath(EdgeNode edgeNode) {
-        List<List<Integer>> listOfNodes = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
-        for (String character : edgeNode.getFullPath().split("/")) {
-            if ((character == null || character.isEmpty())) {
-                if (!temp.isEmpty()) {
-                    listOfNodes.add(new ArrayList<>(temp));
-                    temp.clear();
-                }
-            } else {
-                temp.add(Integer.parseInt(character));
-            }
-        }
-        System.out.println(listOfNodes);
-        return listOfNodes;
     }
 }

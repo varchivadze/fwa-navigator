@@ -12,7 +12,7 @@ public class OutputFormatter {
     }
 
     public void displayResult(Route route) {
-        System.out.println("\nShorest Route : ");
+        System.out.println("\nShortest Route : ");
 
         AddressDescription startAddressDescription = addressStore.getById(route.getStartAddress().getEnteredAddressId());
         System.out.println("From: " + formatAddressDescription(startAddressDescription));
@@ -21,18 +21,24 @@ public class OutputFormatter {
         System.out.println("To: " + formatAddressDescription(destinationAddressDescription));
 
         System.out.println("Route: ");
-        //todo for StartAddress, if entered AddressId != NearestIntersectionId then print first step to get to intersection
-        //todo use addressStore by getId to fetch addressDecryption for nearestIntersection and use formatAddressDescription
-        for (String intersectionId : route.getPath()){
-            //todo use AddressStore.getById to fetch addressDescription for intersection
-            //todo format and print addressDescription for intersection
+        if (!route.getStartAddress().getEnteredAddressId().equals(route.getStartAddress().getNearestIntersectionId())){
+            AddressDescription startIntersectionDescription = addressStore.getById(route.getStartAddress().getNearestIntersectionId());
+            System.out.println("Go to the nearest intersection " + formatAddressDescription(startIntersectionDescription));
         }
-        //todo for DestinationAddress, if entered AddressId != NearestIntersectionId then print first step to get to intersection
-        //todo use addressStore by getId to fetch addressDecryption for nearestIntersection and use formatAddressDescription
+
+        for (String intersectionId : route.getPath()){
+            AddressDescription intersectionAddressDescription = addressStore.getById(intersectionId);
+            System.out.println("* " + formatAddressDescription(intersectionAddressDescription));
+        }
+        if (!route.getDestinationAddress().getEnteredAddressId().equals(route.getDestinationAddress().getNearestIntersectionId())){
+            AddressDescription finalIntersectionDescription = addressStore.getById(route.getDestinationAddress().getEnteredAddressId());
+            System.out.println("Reach your destination from last intersection " + formatAddressDescription(finalIntersectionDescription));
+        }
+
         System.out.println("Distance: " + route.getDistance() + " km");
     }
 
     private static String formatAddressDescription(AddressDescription addressDescription) {
-        return addressDescription.getCountry() + ", " + addressDescription.getCity(); //todo
+        return addressDescription.getCountry() + ", " + addressDescription.getCity() + ", " + addressDescription.getStreet() + ", " + addressDescription.getUnit();
     }
 }

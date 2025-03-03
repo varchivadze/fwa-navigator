@@ -11,7 +11,7 @@ public class ValidationService {
         this.addressStore = addressStore;
     }
 
-    public Address validateAdressInput(AddressDescription addressInput) {
+    public Address validateAddressInput(AddressDescription addressInput) {
         return addressStore.lookup(
                 addressInput.getCountry().trim().toLowerCase(),
                 addressInput.getCity().trim().toLowerCase(),

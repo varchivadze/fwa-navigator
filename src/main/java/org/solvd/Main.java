@@ -12,17 +12,17 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) {
 
-        PathProcessor processor = new PathProcessor();
+/*        PathProcessor processor = new PathProcessor();
 
         ClassLoader classLoader = Main.class.getClassLoader();
         URL mainNodes = classLoader.getResource("warsaw_main_nodes.csv");
-        URL edges = classLoader.getResource("warsaw_edges.csv");
+        URL edges = classLoader.getResource("warsaw_edges_car.csv");
 
-        Map<Long, AddressNode> mapMainNodes = null;
+        Map<String, AddressNode> mapMainNodes = null;
         if (mainNodes != null && edges != null) {
             File csvMain = new File(mainNodes.getFile());
             File csvEdges = new File(edges.getFile());
-            mapMainNodes = processor.parseAddressNodes(csvMain, csvEdges);
+            mapMainNodes = processor.parseAddressNodes();
         }
 //        System.out.println(mapMainNodes);
         System.out.println(mapMainNodes.get(1L));
@@ -35,6 +35,6 @@ public class Main {
         System.out.println(mapMainNodes.get(5L).getBestDist().get(5L).getFullPath());
         System.out.println(mapMainNodes.get(999L).getBestDist().get(5L).getFullPath());
         System.out.println(mapMainNodes.get(999L).getBestDist().get(5L).getWeight());
-        List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());
+        //List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());*/
     }
 }

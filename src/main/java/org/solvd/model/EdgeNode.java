@@ -2,6 +2,8 @@ package org.solvd.model;
 
 import com.opencsv.bean.CsvBindByName;
 
+import java.util.List;
+
 public class EdgeNode implements Cloneable {
 
     private String id;
@@ -9,7 +11,7 @@ public class EdgeNode implements Cloneable {
     private String to;
     private double weight;
 
-    private String fullPath;
+    private List<String> fullPath;
 
     private String busses;
 
@@ -30,11 +32,11 @@ public class EdgeNode implements Cloneable {
         this.id = id;
     }
 
-    public String getFullPath() {
+    public List<String> getFullPath() {
         return fullPath;
     }
 
-    public void setFullPath(String fullPath) {
+    public void setFullPath(List<String> fullPath) {
         this.fullPath = fullPath;
     }
 

@@ -21,26 +21,29 @@ public class UserInputHandler {
 
         System.out.println("Enter country");
         List<String> validCountries = addressStore.getValidCountries();
-        System.out.println("\t" + String.join(", ", validCountries ));
+        System.out.println("\t valid options: " + String.join(", ", validCountries));
         String country = scanner.nextLine();
 
         System.out.println("Enter city");
         List<String> validCities = addressStore.getValidCities(country.trim().toLowerCase());
-        System.out.println("\t" + String.join(", ", validCities ));
+        System.out.println("\t valid options: " + String.join(", ", validCities));
         String city = scanner.nextLine();
 
         System.out.println("Enter street");
-        //todo the same 28
+        List<String> validStreets = addressStore.getValidStreets(country.trim().toLowerCase(), city.trim().toLowerCase());
+        System.out.println("\t valid options: " + String.join(", ", validStreets));
         String street = scanner.nextLine();
 
         System.out.println("Enter unit");
-        //todo the same 33
+        List<String> validUnits = addressStore.getValidUnits(country.trim().toLowerCase(), city.trim().toLowerCase(), street.trim().toLowerCase());
+        System.out.println("\t valid options: " + String.join(", ", validUnits));
         String unit = scanner.nextLine();
 
-        return new AddressDescription(country, city, street,unit );
+        return new AddressDescription(country, city, street, unit);
     }
 
-    /*public String getTransportType() {
+    public String getTransportType() {
         System.out.println("Please choose transport type -> (car/transport/pedestrian): ");
-        return scanner.nextLine(); */
+        return scanner.nextLine();
+    }
 }
