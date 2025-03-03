@@ -1,4 +1,4 @@
-ID,From,To,Weight,Routes
+ID,FromId,ToIdRP,Weight,Routes
 1,1,235,0.288,3
 2,1,158,0.382,3
 3,2,846,1.408,
