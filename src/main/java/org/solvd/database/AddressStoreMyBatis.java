@@ -1,13 +1,30 @@
 package org.solvd.database;
 
+import org.apache.ibatis.session.SqlSession;
+import org.apache.ibatis.session.SqlSessionFactory;
+import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import org.solvd.model.Address;
 import org.solvd.model.AddressDescription;
 import org.solvd.model.IntersectionConnection;
 
+import java.io.IOException;
+import java.io.Reader;
 import java.util.List;
 
 public class AddressStoreMyBatis implements AddressStore {
+    private static SqlSessionFactory sqlSessionFactory;
 
+    public AddressStoreMyBatis() {
+        try (Reader reader = org.apache.ibatis.io.Resources.getResourceAsReader("mybatis-config.xml")) {
+            sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to load MyBatis configuration", e);
+        }
+    }
+
+    public static SqlSession getSession() {
+        return sqlSessionFactory.openSession();
+    }
 
     @Override
     public AddressDescription getById(String addressId) {
