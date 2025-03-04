@@ -1,3 +1,4 @@
+/*
 package org.solvd.database;
 
 import org.solvd.model.AddressNode;
@@ -13,3 +14,4 @@ public interface AddressStore<T> {
     void delete(T edgeNode);
 
 }
+*/

@@ -1,45 +1,26 @@
 package org.solvd.database.dao;
 
 import org.apache.ibatis.session.SqlSession;
-import org.solvd.database.AddressStore;
-import org.solvd.model.AddressNode;
+import org.solvd.database.EdgeNodeMapper;
 import org.solvd.model.EdgeNode;
 import org.solvd.database.AddressStoreMyBatis;
 
-public class EdgeDAO implements AddressStore<EdgeNode> {
+public class EdgeDAO implements EdgeNodeMapper {
 
     @Override
-    public void create(EdgeNode edge) {
+    public void insert(EdgeNode edge) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            AddressStore mapper = session.getMapper(AddressStore.class);
-            mapper.create(edge);
+            EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
+            mapper.insert(edge);
             session.commit();
         }
     }
 
     @Override
-    public AddressNode read(EdgeNode edge) {
+    public EdgeNode findByEdge(Long id) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            AddressStore mapper = session.getMapper(AddressStore.class);
-            return mapper.read(edge);
-        }
-    }
-
-    @Override
-    public void update(EdgeNode edge) {
-        try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            AddressStore mapper = session.getMapper(AddressStore.class);
-            mapper.update(edge);
-            session.commit();
-        }
-    }
-
-    @Override
-    public void delete(EdgeNode edge) {
-        try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            AddressStore mapper = session.getMapper(AddressStore.class);
-            mapper.delete(edge);
-            session.commit();
+            EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
+            return mapper.findByEdge(id);
         }
     }
 }

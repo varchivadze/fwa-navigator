@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.solvd.database.mapper.EdgeMapper">
+<mapper namespace="org.solvd.database.mapper.EdgeNodeMapper">
 
-    <insert id="insert" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO edges (`fromId`, `toId`, weight, fullPath)
+    <insert id="insert" parameterType="org.solvd.model.EdgeNode">
+        INSERT INTO edges (fromId, toId, weight, fullPath)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath})
     </insert>
 

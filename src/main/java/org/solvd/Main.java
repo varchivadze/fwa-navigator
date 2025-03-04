@@ -1,6 +1,8 @@
 package org.solvd;
 
 import org.solvd.database.InitDumpCalculation;
+import org.solvd.database.dao.AddressDAO;
+import org.solvd.database.dao.EdgeDAO;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.AlgorithmService;
@@ -40,5 +42,15 @@ public class Main {
 //        List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());
 
         InitDumpCalculation.mapNodes();
+        AddressDAO addressDAO = new AddressDAO();
+        EdgeDAO edgeDAO = new EdgeDAO();
+        AddressNode addressNode = new AddressNode();
+        EdgeNode edgeNode = new EdgeNode();
+        addressNode.setId(1L);
+        addressNode.setCountry("");
+        addressNode.setCity("");
+        addressNode.setStreet("");
+        addressNode.setUnit("");
+        addressDAO.insert(addressNode);
     }
 }
