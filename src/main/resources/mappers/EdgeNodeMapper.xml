@@ -4,22 +4,12 @@
 <mapper namespace="org.solvd.database.mapper.EdgeMapper">
 
     <insert id="insert" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO edges (`from`, `to`, weight, fullPath)
+        INSERT INTO edges (`fromId`, `toId`, weight, fullPath)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath})
     </insert>
 
     <select id="findByEdge" parameterType="long" resultType="org.solvd.model.EdgeNode">
-        SELECT * FROM edges WHERE country = #{country} AND city = #{city} AND street_address = #{street_address} AND unit = #{unit}
+        SELECT * FROM edges WHERE fromId = #{fromId} AND toId = #{toId};
     </select>
-
-    <update id="update" parameterType="org.solvd.model.EdgeNode">
-        UPDATE edges
-        SET `from` = #{from}, `to` = #{to}, weight = #{weight}, fullPath = #{fullPath}
-        WHERE id = #{id}
-    </update>
-
-    <delete id="delete" parameterType="long">
-        DELETE FROM edges WHERE id = #{id}
-    </delete>
 
 </mapper>
