@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.solvd.database.mapper.EdgeMapper">
+<mapper namespace="org.solvd.database.mapper.EdgeNodeMapper">
 
     <insert id="insert" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO edges (`from`, `to`, weight, fullPath)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath})
     </insert>
 
-    <select id="findById" parameterType="long" resultType="org.solvd.model.EdgeNode">
+    <select id="read" parameterType="long" resultType="org.solvd.model.EdgeNode">
         SELECT * FROM edges WHERE id = #{id}
     </select>
 
