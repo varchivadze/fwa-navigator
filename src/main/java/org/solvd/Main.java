@@ -5,13 +5,9 @@ import org.solvd.database.dao.AddressDAO;
 import org.solvd.database.dao.EdgeDAO;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
-import org.solvd.service.AlgorithmService;
-import org.solvd.service.PathProcessor;
 
-import java.io.File;
-import java.net.URL;
-import java.util.List;
-import java.util.Map;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 public class Main {
     public static void main(String[] args) {
