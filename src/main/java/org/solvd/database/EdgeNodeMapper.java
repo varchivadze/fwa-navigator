@@ -1,4 +1,6 @@
 package org.solvd.database;
 
-public interface EdgeNodeMapper {
+import org.solvd.model.EdgeNode;
+
+public interface EdgeNodeMapper extends AddressStore<EdgeNode> {
 }

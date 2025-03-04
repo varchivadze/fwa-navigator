@@ -1,6 +1,8 @@
 package org.solvd;
 
+import org.solvd.database.AddressStoreMyBatis;
 import org.solvd.database.InitDumpCalculation;
+import org.solvd.database.dao.AddressDAO;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.AlgorithmService;
@@ -39,6 +41,15 @@ public class Main {
 //        System.out.println(mapMainNodes.get(999L).getBestDist().get(5L).getWeight());
 //        List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());
 
-        InitDumpCalculation.mapNodes();
+//        InitDumpCalculation.mapNodes();
+        AddressStoreMyBatis addressStoreMyBatis = new AddressStoreMyBatis();
+        AddressDAO addressDAO = new AddressDAO();
+        AddressNode addressNode = new AddressNode();
+        addressNode.setId(2L);
+        addressNode.setCountry("t");
+        addressNode.setCity("e");
+        addressNode.setStreet("s");
+        addressNode.setUnit("t");
+        addressDAO.create(addressNode);
     }
 }

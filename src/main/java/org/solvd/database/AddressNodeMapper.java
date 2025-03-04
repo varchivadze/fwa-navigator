@@ -1,4 +1,6 @@
 package org.solvd.database;
 
-public interface AddressNodeMapper {
+import org.solvd.model.AddressNode;
+
+public interface AddressNodeMapper extends AddressStore<AddressNode> {
 }
