@@ -4,6 +4,6 @@ import org.solvd.model.EdgeNode;
 import java.util.List;
 
 public interface EdgeNodeMapper {
-    void insert(EdgeNode edge);
-    EdgeNode findByEdge(Long id);
+    void create(EdgeNode edge);
+    EdgeNode read(EdgeNode edge);
 }

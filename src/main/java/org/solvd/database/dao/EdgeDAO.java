@@ -8,19 +8,19 @@ import org.solvd.database.AddressStoreMyBatis;
 public class EdgeDAO implements EdgeNodeMapper {
 
     @Override
-    public void insert(EdgeNode edge) {
+    public void create(EdgeNode edge) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
-            mapper.insert(edge);
+            mapper.create(edge);
             session.commit();
         }
     }
 
     @Override
-    public EdgeNode findByEdge(Long id) {
+    public EdgeNode read(EdgeNode edge) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
-            return mapper.findByEdge(id);
+            return mapper.read(edge);
         }
     }
 }

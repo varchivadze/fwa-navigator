@@ -9,19 +9,19 @@ import org.solvd.database.AddressStoreMyBatis;
 public class AddressDAO implements AddressNodeMapper {
 
     @Override
-    public void insert(AddressNode address) {
+    public void create(AddressNode address) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             AddressNodeMapper mapper = session.getMapper(AddressNodeMapper.class);
-            mapper.insert(address);
+            mapper.create(address);
             session.commit();
         }
     }
 
     @Override
-    public AddressNode findByAddress(AddressNode address) {
+    public AddressNode read(AddressNode address) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             AddressNodeMapper mapper = session.getMapper(AddressNodeMapper.class);
-            return mapper.findByAddress(address);
+            return mapper.read(address);
         }
     }
 

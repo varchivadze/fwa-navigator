@@ -3,12 +3,12 @@
 
 <mapper namespace="org.solvd.database.mapper.EdgeNodeMapper">
 
-    <insert id="insert" parameterType="org.solvd.model.EdgeNode">
+    <insert id="create" parameterType="org.solvd.model.EdgeNode">
         INSERT INTO edges (fromId, toId, weight, fullPath)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath})
     </insert>
 
-    <select id="findByEdge" parameterType="long" resultType="org.solvd.model.EdgeNode">
+    <select id="read" parameterType="long" resultType="org.solvd.model.EdgeNode">
         SELECT * FROM edges WHERE fromId = #{fromId} AND toId = #{toId};
     </select>
 
