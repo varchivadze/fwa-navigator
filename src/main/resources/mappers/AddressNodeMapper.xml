@@ -8,8 +8,8 @@
         VALUES (#{id}, #{street}, #{city}, #{country}, #{unit})
     </insert>
 
-    <select id="findById" parameterType="long" resultType="org.solvd.model.AddressNode">
-        SELECT * FROM addresses WHERE id = #{id}
+    <select id="findByAddress" parameterType="long" resultType="org.solvd.model.AddressNode">
+        SELECT * FROM addresses WHERE country = #{country} AND city = #{city} AND street_address = #{street_address} AND unit = #{unit}
     </select>
 
     <select id="findAll" resultType="org.solvd.model.AddressNode">

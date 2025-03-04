@@ -8,8 +8,8 @@
         VALUES (#{from}, #{to}, #{weight}, #{fullPath})
     </insert>
 
-    <select id="findById" parameterType="long" resultType="org.solvd.model.EdgeNode">
-        SELECT * FROM edges WHERE id = #{id}
+    <select id="findByEdge" parameterType="long" resultType="org.solvd.model.EdgeNode">
+        SELECT * FROM edges WHERE country = #{country} AND city = #{city} AND street_address = #{street_address} AND unit = #{unit}
     </select>
 
     <update id="update" parameterType="org.solvd.model.EdgeNode">

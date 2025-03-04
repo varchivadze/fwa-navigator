@@ -21,7 +21,4 @@ public class AddressStoreMyBatis {
     public static SqlSession getSession() {
         return sqlSessionFactory.openSession();
     }
-
-
-
 }
