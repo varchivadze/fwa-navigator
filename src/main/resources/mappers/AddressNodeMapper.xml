@@ -4,8 +4,8 @@
 <mapper namespace="org.solvd.database.mapper.AddressMapper">
 
     <insert id="insert" parameterType="org.solvd.model.AddressNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO addresses (street, city, country, unit)
-        VALUES (#{street}, #{city}, #{country}, #{unit})
+        INSERT INTO addresses (id, street_address, city, country, unit)
+        VALUES (#{id}, #{street}, #{city}, #{country}, #{unit})
     </insert>
 
     <select id="findById" parameterType="long" resultType="org.solvd.model.AddressNode">
@@ -18,7 +18,7 @@
 
     <update id="update" parameterType="org.solvd.model.AddressNode">
         UPDATE addresses
-        SET street = #{street}, city = #{city}, country = #{country}, unit = #{unit}
+        SET street = #{id}, #{street}, city = #{city}, country = #{country}, unit = #{unit}
         WHERE id = #{id}
     </update>
 

@@ -4,8 +4,8 @@
 <mapper namespace="org.solvd.database.mapper.EdgeMapper">
 
     <insert id="insert" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO edges (`from`, `to`, weight, fullPath, busses)
-        VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
+        INSERT INTO edges (`from`, `to`, weight, fullPath)
+        VALUES (#{from}, #{to}, #{weight}, #{fullPath})
     </insert>
 
     <select id="findById" parameterType="long" resultType="org.solvd.model.EdgeNode">
@@ -14,7 +14,7 @@
 
     <update id="update" parameterType="org.solvd.model.EdgeNode">
         UPDATE edges
-        SET `from` = #{from}, `to` = #{to}, weight = #{weight}, fullPath = #{fullPath}, busses = #{busses}
+        SET `from` = #{from}, `to` = #{to}, weight = #{weight}, fullPath = #{fullPath}
         WHERE id = #{id}
     </update>
 
