@@ -5,7 +5,7 @@
 
     <insert id="create" parameterType="org.solvd.model.EdgeNode">
         INSERT INTO edges (fromId, toId, weight, fullPath)
-        VALUES (#{from}, #{to}, #{weight}, #{fullPath})
+        VALUES (#{fromId}, #{toId}, #{weight}, #{fullPath})
     </insert>
 
     <select id="read" parameterType="long" resultType="org.solvd.model.EdgeNode">

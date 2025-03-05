@@ -5,7 +5,7 @@
 
     <insert id="create" parameterType="org.solvd.model.AddressNode">
         INSERT INTO addresses (id, street_address, city, country, unit)
-        VALUES (#{id}, #{street}, #{city}, #{country}, #{unit})
+        VALUES (#{id}, #{street_address}, #{city}, #{country}, #{unit})
     </insert>
 
     <select id="read" parameterType="long" resultType="org.solvd.model.AddressNode">
