@@ -4,23 +4,23 @@
 <mapper namespace="org.solvd.database.EdgeNodeMapper">
 
     <insert id="create" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO edges (fromId, toId, weight, fullPath, busses)
+        INSERT INTO edges (from_id, to_id, weight, fullPath, busses)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
     <select id="read" parameterType="org.solvd.model.AddressNode" resultType="org.solvd.model.EdgeNode">
-        SELECT * FROM edges WHERE fromId = #{from} AND toId = #{to}
+        SELECT * FROM edges WHERE from_id = #{from} AND to_id = #{to}
     </select>
 
     <update id="update" parameterType="org.solvd.model.EdgeNode">
         UPDATE edges
-        SET fromId = #{from}, toId = #{to}, weight = #{weight}, fullPath = #{fullPath}
-        WHERE fromId = #{from} AND toId = #{to}
+        SET from_id = #{from}, to_id = #{to}, weight = #{weight}, fullPath = #{fullPath}
+        WHERE from_id = #{from} AND to_id = #{to}
     </update>
 
     <delete id="delete" parameterType="long">
         DELETE FROM edges
-        WHERE fromId = #{from} AND toId = #{to}
+        WHERE from_id = #{from} AND to_id = #{to}
     </delete>
 
 </mapper>
