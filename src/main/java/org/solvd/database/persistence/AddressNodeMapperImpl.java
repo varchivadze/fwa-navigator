@@ -1,12 +1,14 @@
-package org.solvd.database.dao;
+package org.solvd.database.persistence;
 
 import org.apache.ibatis.session.SqlSession;
+
 import org.solvd.database.AddressNodeMapper;
 
 import org.solvd.model.AddressNode;
+
 import org.solvd.database.AddressStoreMyBatis;
 
-public class AddressDAO implements AddressNodeMapper {
+public class AddressNodeMapperImpl implements AddressNodeMapper {
 
     @Override
     public void create(AddressNode address) {
@@ -25,4 +27,21 @@ public class AddressDAO implements AddressNodeMapper {
         }
     }
 
+    @Override
+    public void update(AddressNode address) {
+        try (SqlSession session = AddressStoreMyBatis.getSession()) {
+            AddressNodeMapper mapper = session.getMapper(AddressNodeMapper.class);
+            mapper.update(address);
+            session.commit();
+        }
+    }
+
+    @Override
+    public void delete(AddressNode address) {
+        try (SqlSession session = AddressStoreMyBatis.getSession()) {
+            AddressNodeMapper mapper = session.getMapper(AddressNodeMapper.class);
+            mapper.delete(address);
+            session.commit();
+        }
+    }
 }

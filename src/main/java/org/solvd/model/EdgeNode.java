@@ -6,11 +6,11 @@ public class EdgeNode implements Cloneable {
 
     @CsvBindByName(column = "ID")
     private Long id;
-    @CsvBindByName(column = "From")
+    @CsvBindByName(column = "From_Id")
     private Long from;
-    @CsvBindByName(column = "To")
+    @CsvBindByName(column = "To_Id")
     private Long to;
-    @CsvBindByName(column = "Weight (km)")
+    @CsvBindByName(column = "Weight")
     private double weight;
 
     @CsvBindByName(column = "path")

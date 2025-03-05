@@ -1,15 +1,29 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.solvd.database.mapper.AddressNodeMapper">
+<mapper namespace="org.solvd.database.AddressNodeMapper">
 
-    <insert id="create" parameterType="org.solvd.model.AddressNode">
+    <insert id="create" parameterType="org.solvd.model.AddressNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO addresses (id, street_address, city, country, unit)
         VALUES (#{id}, #{street}, #{city}, #{country}, #{unit})
     </insert>
 
-    <select id="read" parameterType="long" resultType="org.solvd.model.AddressNode">
-        SELECT * FROM addresses WHERE country = #{country} AND city = #{city} AND street_address = #{street_address} AND unit = #{unit}
+    <select id="read" parameterType="org.solvd.model.AddressNode" resultType="org.solvd.model.AddressNode">
+        SELECT * FROM addresses WHERE street_address = #{street} AND city = #{city} AND country = #{country} and unit = #{unit}
     </select>
+
+    <select id="findAll" resultType="org.solvd.model.AddressNode">
+        SELECT * FROM addresses
+    </select>
+
+    <update id="update" parameterType="org.solvd.model.AddressNode">
+        UPDATE addresses
+        SET id = #{id}, street_address = #{street}, city = #{city}, country = #{country}, unit = #{unit}
+        WHERE id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM addresses WHERE id = #{id}
+    </delete>
 
 </mapper>
