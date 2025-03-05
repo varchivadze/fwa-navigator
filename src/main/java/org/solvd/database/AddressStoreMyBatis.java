@@ -10,7 +10,7 @@ import java.io.Reader;
 public class AddressStoreMyBatis {
     private static SqlSessionFactory sqlSessionFactory;
 
-    public AddressStoreMyBatis() {
+    static {
         try (Reader reader = org.apache.ibatis.io.Resources.getResourceAsReader("mybatis-config.xml")) {
             sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
         } catch (IOException e) {

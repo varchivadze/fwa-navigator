@@ -1,6 +1,18 @@
 package org.solvd;
 
+import org.solvd.database.AddressStoreMyBatis;
 import org.solvd.database.InitDumpCalculation;
+import org.solvd.database.dao.AddressDAO;
+import org.solvd.database.dao.EdgeDAO;
+import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
+import org.solvd.service.AlgorithmService;
+import org.solvd.service.PathProcessor;
+
+import java.io.File;
+import java.net.URL;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,6 +42,15 @@ public class Main {
 //        System.out.println(mapMainNodes.get(999L).getBestDist().get(5L).getWeight());
 //        List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());
 
-        InitDumpCalculation.mapNodes();
+        //InitDumpCalculation.mapNodes();
+        AddressStoreMyBatis addressStoreMyBatis = new AddressStoreMyBatis();
+        AddressDAO addressDAO = new AddressDAO();
+        AddressNode addressNode = new AddressNode();
+        addressNode.setId(2L);
+        addressNode.setCountry("t");
+        addressNode.setCity("e");
+        addressNode.setStreet("s");
+        addressNode.setUnit("t");
+        addressDAO.create(addressNode);
     }
 }
