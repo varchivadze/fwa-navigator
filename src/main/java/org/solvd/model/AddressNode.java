@@ -11,7 +11,7 @@ public class AddressNode {
     @CsvBindByName(column = "ID")
     private Long id;
 
-    @CsvBindByName(column = "Street Address")
+    @CsvBindByName(column = "Street_Address")
     private String street;
 
     @CsvBindByName(column = "City")

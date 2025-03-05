@@ -1,10 +1,14 @@
-package org.solvd.database;
+package org.solvd.service;
 
 import org.solvd.model.AddressNode;
 
-public interface AddressNodeMapper {
+public interface AddressService {
+
     void create(AddressNode address);
+
     AddressNode read(AddressNode address);
+
     void update(AddressNode address);
     void delete(AddressNode address);
+
 }
