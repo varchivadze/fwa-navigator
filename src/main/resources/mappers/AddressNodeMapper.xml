@@ -9,7 +9,8 @@
     </insert>
 
     <select id="findByAddress" parameterType="long" resultType="org.solvd.model.AddressNode">
-        SELECT * FROM addresses WHERE country = #{country} AND city = #{city} AND street_address = #{street_address} AND unit = #{unit}
+        SELECT * FROM addresses WHERE country = #{country} AND city = #{city} AND street_address = #{street_address} AND
+        unit = #{unit}
     </select>
 
     <select id="findAll" resultType="org.solvd.model.AddressNode">

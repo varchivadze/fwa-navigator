@@ -2,8 +2,8 @@ package org.solvd.database.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.solvd.database.AddressStore;
-import org.solvd.model.AddressNode;
 import org.solvd.database.AddressStoreMyBatis;
+import org.solvd.model.AddressNode;
 
 public class AddressDAO implements AddressStore<AddressNode> {
 
