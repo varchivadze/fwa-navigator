@@ -1,7 +1,6 @@
 package org.solvd;
 
 import org.solvd.database.AddressStoreMyBatis;
-import org.solvd.database.InitDumpCalculation;
 import org.solvd.database.persistence.AddressNodeMapperImpl;
 import org.solvd.database.persistence.EdgeNodeMapperImpl;
 import org.solvd.model.AddressNode;
