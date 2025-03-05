@@ -9,6 +9,8 @@ import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.EdgeService;
 
+import java.util.List;
+
 public class EdgeServiceImpl implements EdgeService {
 
         private final EdgeNodeMapper edgesImpl;
@@ -20,6 +22,10 @@ public class EdgeServiceImpl implements EdgeService {
         @Override
         public void create(EdgeNode edge) {
                 edgesImpl.create(edge);
+        }
+
+        public void createList(List<EdgeNode> edges) {
+                edgesImpl.createList(edges);
         }
 
         @Override

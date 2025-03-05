@@ -8,6 +8,8 @@ import org.solvd.model.EdgeNode;
 
 import org.solvd.database.AddressStoreMyBatis;
 
+import java.util.List;
+
 public class EdgeNodeMapperImpl implements EdgeNodeMapper {
 
     @Override
@@ -15,6 +17,15 @@ public class EdgeNodeMapperImpl implements EdgeNodeMapper {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
             mapper.create(edge);
+            session.commit();
+        }
+    }
+
+    @Override
+    public void createList(List<EdgeNode> edges) {
+        try (SqlSession session = AddressStoreMyBatis.getSession()) {
+            EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
+            mapper.createList(edges);
             session.commit();
         }
     }
@@ -44,5 +55,4 @@ public class EdgeNodeMapperImpl implements EdgeNodeMapper {
             session.commit();
         }
     }
-
 }

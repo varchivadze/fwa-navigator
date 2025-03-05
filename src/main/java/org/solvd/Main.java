@@ -6,10 +6,7 @@ import org.solvd.database.persistence.AddressNodeMapperImpl;
 import org.solvd.database.persistence.EdgeNodeMapperImpl;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
-import org.solvd.service.AddressService;
-import org.solvd.service.AlgorithmService;
-import org.solvd.service.EdgeService;
-import org.solvd.service.PathProcessor;
+import org.solvd.service.*;
 import org.solvd.service.impl.AddressServiceImpl;
 import org.solvd.service.impl.EdgeServiceImpl;
 
@@ -47,64 +44,68 @@ public class Main {
 //        List<List<Integer>> parsedPath = processor.parseFullPath(new EdgeNode());
 
 //        InitDumpCalculation.mapNodes();
-        AddressStoreMyBatis addressStoreMyBatis = new AddressStoreMyBatis();
-        AddressService addressDAO = new AddressServiceImpl();
+//        AddressStoreMyBatis addressStoreMyBatis = new AddressStoreMyBatis();
+//        AddressService addressDAO = new AddressServiceImpl();
+//
 
-        // Create AddressNode
-        AddressNode addressNode = new AddressNode();
-        addressNode.setId(21L);
-        addressNode.setCountry("t");
-        addressNode.setCity("e");
-        addressNode.setStreet("s");
-        addressNode.setUnit("t");
-        addressDAO.create(addressNode);
+//        AddressService addressService = new AddressServiceImpl();
+//        AddressNode addressNode = new AddressNode();
+//        addressNode.setId(21L);
+//        addressNode.setCountry("t");
+//        addressNode.setCity("e");
+//        addressNode.setStreet("s");
+//        addressNode.setUnit("t");
+//        addressService.create(addressNode);
+//
+//
+//        AddressNode addressNode2 = new AddressNode();
+//        addressNode2.setId(22L);
+//        addressNode2.setCountry("ttes");
+//        addressNode2.setCity("esss");
+//        addressNode2.setStreet("sss");
+//        addressNode2.setUnit("tsss");
+//        addressDAO.create(addressNode2);
+//
 
+//        AddressNode retrievedAddress = addressDAO.read(addressNode);
 
-        AddressNode addressNode2 = new AddressNode();
-        addressNode2.setId(22L);
-        addressNode2.setCountry("ttes");
-        addressNode2.setCity("esss");
-        addressNode2.setStreet("sss");
-        addressNode2.setUnit("tsss");
-        addressDAO.create(addressNode2);
+//
 
-        // Read AddressNode
-        AddressNode retrievedAddress = addressDAO.read(addressNode);
-        System.out.println("Read Address: " + retrievedAddress);
+//        retrievedAddress.setCity("updated");
+//        addressDAO.update(retrievedAddress);
 
-        // Update AddressNode
-        retrievedAddress.setCity("updated");
-        addressDAO.update(retrievedAddress);
-        System.out.println("Updated Address: " + addressDAO.read(retrievedAddress));
+//
+//
+//        EdgeService edgeDAO = new EdgeServiceImpl();
+//
 
-        // Delete AddressNode
+//        EdgeNode edgeNode = new EdgeNode();
+//        edgeNode.setId(22L);
+//        edgeNode.setFrom(21L);
+//        edgeNode.setTo(22L);
+//        edgeNode.setWeight(12.5);
+//        edgeDAO.create(edgeNode);
+//
 
+//        EdgeNode retrievedEdge = edgeDAO.read(edgeNode);
 
-        // -------------------------
+//
 
-        EdgeService edgeDAO = new EdgeServiceImpl();
+//        retrievedEdge.setWeight(15.0);
+//        edgeDAO.update(retrievedEdge);
 
-        // Create EdgeNode
-        EdgeNode edgeNode = new EdgeNode();
-        edgeNode.setId(22L);
-        edgeNode.setFrom(21L);
-        edgeNode.setTo(22L);
-        edgeNode.setWeight(12.5);
-        edgeDAO.create(edgeNode);
-
-        // Read EdgeNode
-        EdgeNode retrievedEdge = edgeDAO.read(edgeNode);
-        System.out.println("Read Edge: " + retrievedEdge);
-
-        // Update EdgeNode
-        retrievedEdge.setWeight(15.0);
-        edgeDAO.update(retrievedEdge);
-        System.out.println("Updated Edge: " + edgeDAO.read(retrievedEdge));
 
 //        edgeDAO.delete(edgeNode);
 //        System.out.println("Deleted Edge");
 //        addressDAO.delete(addressNode);
 //        addressDAO.delete(addressNode2);
-//        System.out.println("Deleted Address");
+
+
+
+        DataInitService dataInitService = new DataInitService();
+        Map<Long, AddressNode> data = dataInitService.loadGraphFromDatabase();
+        System.out.println(data);
+        dataInitService.saveGraphToDatabase(data);
+
     }
 }

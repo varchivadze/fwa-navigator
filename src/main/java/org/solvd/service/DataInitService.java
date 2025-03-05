@@ -1,21 +1,23 @@
 package org.solvd.service;
 
-import org.solvd.database.dao.AddressDAO;
-import org.solvd.database.dao.EdgeDAO;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
+import org.solvd.service.impl.AddressServiceImpl;
+import org.solvd.service.impl.EdgeServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class DataInitService {
 
-    private AddressDAO addressDAO;
-    private EdgeDAO edgeDAO;
+    private AddressService addressDAO;
+    private EdgeService edgeDAO;
     private PathProcessor processor;
 
     public DataInitService() {
-        this.addressDAO = new AddressDAO();
-        this.edgeDAO = new EdgeDAO();
+        this.addressDAO = new AddressServiceImpl();
+        this.edgeDAO = new EdgeServiceImpl();
         this.processor = new PathProcessor();
     }
 
@@ -57,11 +59,13 @@ public class DataInitService {
         for (AddressNode node : graph.values()) {
             // Zapisujemy węzeł do bazy
             addressDAO.create(node);
+        }
+        for (AddressNode node : graph.values()) {
+            List<EdgeNode> edgeNodeList = new ArrayList<>();
+            edgeNodeList.addAll(node.getBestDist().values());
+            edgeDAO.createList(edgeNodeList);
 
-            // Iterujemy po wszystkich powiązanych krawędziach i zapisujemy je do bazy
-            for (EdgeNode edge : node.getBestDist().values()) {
-                edgeDAO.create(edge);
-            }
+
         }
     }
 }

@@ -8,6 +8,14 @@
         VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
+    <insert id="createList" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO edges (from_id, to_id, weight, full_path, busses)
+        VALUES
+        <foreach collection="list" item="edge" separator=",">
+            (#{edge.from}, #{edge.to}, #{edge.weight}, #{edge.fullPath}, #{edge.busses})
+        </foreach>
+    </insert>
+
     <select id="read" parameterType="org.solvd.model.AddressNode" resultType="org.solvd.model.EdgeNode">
         SELECT * FROM edges WHERE from_id = #{from} AND to_id = #{to}
     </select>
