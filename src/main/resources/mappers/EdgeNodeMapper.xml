@@ -1,25 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="org.solvd.database.mapper.EdgeNodeMapper">
+<mapper namespace="org.solvd.database.EdgeNodeMapper">
 
-    <insert id="insert" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO edges (`from`, `to`, weight, fullPath)
-        VALUES (#{from}, #{to}, #{weight}, #{fullPath})
+    <insert id="create" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO edges (fromId, toId, weight, fullPath, busses)
+        VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
-    <select id="read" parameterType="long" resultType="org.solvd.model.EdgeNode">
-        SELECT * FROM edges WHERE id = #{id}
+    <select id="read" parameterType="org.solvd.model.AddressNode" resultType="org.solvd.model.EdgeNode">
+        SELECT * FROM edges WHERE fromId = #{from} AND toId = #{to}
     </select>
 
     <update id="update" parameterType="org.solvd.model.EdgeNode">
         UPDATE edges
-        SET `from` = #{from}, `to` = #{to}, weight = #{weight}, fullPath = #{fullPath}
-        WHERE id = #{id}
+        SET fromId = #{from}, toId = #{to}, weight = #{weight}, fullPath = #{fullPath}
+        WHERE fromId = #{from} AND toId = #{to}
     </update>
 
     <delete id="delete" parameterType="long">
-        DELETE FROM edges WHERE id = #{id}
+        DELETE FROM edges
+        WHERE fromId = #{from} AND toId = #{to}
     </delete>
 
 </mapper>

@@ -6,7 +6,7 @@ public interface AddressStore<T> {
 
     void create(T address);
 
-    AddressNode read(T address);
+    T read(T address);
 
     void update(T edgeNode);
 

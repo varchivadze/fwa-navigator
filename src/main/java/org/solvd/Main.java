@@ -3,6 +3,7 @@ package org.solvd;
 import org.solvd.database.AddressStoreMyBatis;
 import org.solvd.database.InitDumpCalculation;
 import org.solvd.database.dao.AddressDAO;
+import org.solvd.database.dao.EdgeDAO;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.AlgorithmService;
@@ -44,12 +45,62 @@ public class Main {
 //        InitDumpCalculation.mapNodes();
         AddressStoreMyBatis addressStoreMyBatis = new AddressStoreMyBatis();
         AddressDAO addressDAO = new AddressDAO();
+
+        // Create AddressNode
         AddressNode addressNode = new AddressNode();
-        addressNode.setId(2L);
+        addressNode.setId(21L);
         addressNode.setCountry("t");
         addressNode.setCity("e");
         addressNode.setStreet("s");
         addressNode.setUnit("t");
         addressDAO.create(addressNode);
+
+
+        AddressNode addressNode2 = new AddressNode();
+        addressNode2.setId(22L);
+        addressNode2.setCountry("ttes");
+        addressNode2.setCity("esss");
+        addressNode2.setStreet("sss");
+        addressNode2.setUnit("tsss");
+        addressDAO.create(addressNode2);
+
+        // Read AddressNode
+        AddressNode retrievedAddress = addressDAO.read(addressNode);
+        System.out.println("Read Address: " + retrievedAddress);
+
+        // Update AddressNode
+        retrievedAddress.setCity("updated");
+        addressDAO.update(retrievedAddress);
+        System.out.println("Updated Address: " + addressDAO.read(retrievedAddress));
+
+        // Delete AddressNode
+
+
+        // -------------------------
+
+        EdgeDAO edgeDAO = new EdgeDAO();
+
+        // Create EdgeNode
+        EdgeNode edgeNode = new EdgeNode();
+        edgeNode.setId(22L);
+        edgeNode.setFrom(21L);
+        edgeNode.setTo(22L);
+        edgeNode.setWeight(12.5);
+        edgeDAO.create(edgeNode);
+
+        // Read EdgeNode
+        EdgeNode retrievedEdge = edgeDAO.read(edgeNode);
+        System.out.println("Read Edge: " + retrievedEdge);
+
+        // Update EdgeNode
+        retrievedEdge.setWeight(15.0);
+        edgeDAO.update(retrievedEdge);
+        System.out.println("Updated Edge: " + edgeDAO.read(retrievedEdge));
+
+//        edgeDAO.delete(edgeNode);
+//        System.out.println("Deleted Edge");
+//        addressDAO.delete(addressNode);
+//        addressDAO.delete(addressNode2);
+//        System.out.println("Deleted Address");
     }
 }

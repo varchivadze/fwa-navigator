@@ -19,7 +19,7 @@ public class EdgeDAO implements EdgeNodeMapper {
     }
 
     @Override
-    public AddressNode read(EdgeNode edge) {
+    public EdgeNode read(EdgeNode edge) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             EdgeNodeMapper mapper = session.getMapper(EdgeNodeMapper.class);
             return mapper.read(edge);
