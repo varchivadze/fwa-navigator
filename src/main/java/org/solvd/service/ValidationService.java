@@ -11,8 +11,9 @@ public class ValidationService {
 
     public boolean isValidAddress(String address) {
         Set<String> availableAddresses = algorithmService.getAvailableAddresses();
-        System.out.println("Available addresses: " + availableAddresses);
-        System.out.println("Input address: " + address.trim().toLowerCase());
-        return availableAddresses.contains(address.trim().toLowerCase());
+        // Zakładamy, że adresy są przechowywane w unormowanej (trim + lowercase) postaci
+        System.out.println("Dostępne adresy: " + availableAddresses);
+        System.out.println("Wprowadzony adres: " + address);
+        return availableAddresses.contains(address);
     }
 }

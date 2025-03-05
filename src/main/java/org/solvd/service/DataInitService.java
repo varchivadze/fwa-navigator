@@ -3,9 +3,8 @@ package org.solvd.service;
 import org.solvd.database.dao.AddressDAO;
 import org.solvd.database.dao.EdgeDAO;
 import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
 
-import java.io.File;
-import java.net.URL;
 import java.util.Map;
 
 public class DataInitService {
@@ -13,7 +12,6 @@ public class DataInitService {
     private AddressDAO addressDAO;
     private EdgeDAO edgeDAO;
     private PathProcessor processor;
-    private Map<Long, AddressNode> graph;
 
     public DataInitService() {
         this.addressDAO = new AddressDAO();
@@ -21,44 +19,49 @@ public class DataInitService {
         this.processor = new PathProcessor();
     }
 
-    public void migrateDataIfNecessary() {
-
+    /**
+     * Inicjalizuje graf na podstawie danych z CSV.
+     * Na razie pobieramy dane z CSV – w przyszłości ta metoda będzie pobierać dane z bazy.
+     *
+     * @return graf jako Map<Long, AddressNode>
+     */
+    public Map<Long, AddressNode> loadGraphFromDatabase() {
+        // Implementacja z kroku 1 – wczytanie CSV i budowa grafu
         ClassLoader classLoader = DataInitService.class.getClassLoader();
-        URL mainNodesURL = classLoader.getResource("warsaw_main_nodes.csv");
-        URL edgesURL = classLoader.getResource("warsaw_edges.csv");
+        // Pobieramy pliki CSV z zasobów
+        java.net.URL mainNodesURL = classLoader.getResource("warsaw_main_nodes.csv");
+        java.net.URL edgesURL = classLoader.getResource("warsaw_edges.csv");
 
         if (mainNodesURL == null || edgesURL == null) {
-            throw new RuntimeException("no CSV file for data migration!");
+            throw new RuntimeException("Nie znaleziono plików CSV z danymi!");
         }
 
-        File csvMain = new File(mainNodesURL.getFile());
-        File csvEdges = new File(edgesURL.getFile());
+        java.io.File csvMain = new java.io.File(mainNodesURL.getFile());
+        java.io.File csvEdges = new java.io.File(edgesURL.getFile());
 
-        Map<Long, AddressNode> addressNodes = processor.parseAddressNodes(csvMain, csvEdges);
-
-        for (AddressNode addressNode : addressNodes.values()) {
-            addressDAO.create(addressNode);
-        }
-
-    }
-
-
-    // TODO: changing impl to get data from db using DAO.
-    public Map<Long, AddressNode> loadGraphFromDatabase() {
-        // TODO: checking if data exists in DB
-        migrateDataIfNecessary();
-
-        // TODO: changing to DB
-        ClassLoader classLoader = DataInitService.class.getClassLoader();
-        URL mainNodesURL = classLoader.getResource("warsaw_main_nodes.csv");
-        URL edgesURL = classLoader.getResource("warsaw_edges.csv");
-
-        File csvMain = new File(mainNodesURL.getFile());
-        File csvEdges = new File(edgesURL.getFile());
-        this.graph = processor.parseAddressNodes(csvMain, csvEdges);
-        processor.FWParser(graph);
+        // Parsujemy dane i budujemy graf
+        Map<Long, AddressNode> graph = processor.parseAddressNodes(csvMain, csvEdges);
+        processor.FWParser(graph);  // Uruchamiamy algorytm (np. Floyd-Warshall) na grafie
 
         return graph;
     }
-}
 
+    /**
+     * Zapisuje wygenerowany graf do bazy danych.
+     * Dla każdego AddressNode wywołuje metodę create() w AddressDAO,
+     * a następnie dla każdej krawędzi (EdgeNode) w mapie bestDist wywołuje metodę create() w EdgeDAO.
+     *
+     * @param graph graf w postaci Map<Long, AddressNode>
+     */
+    public void saveGraphToDatabase(Map<Long, AddressNode> graph) {
+        for (AddressNode node : graph.values()) {
+            // Zapisujemy węzeł do bazy
+            addressDAO.create(node);
+
+            // Iterujemy po wszystkich powiązanych krawędziach i zapisujemy je do bazy
+            for (EdgeNode edge : node.getBestDist().values()) {
+                edgeDAO.create(edge);
+            }
+        }
+    }
+}

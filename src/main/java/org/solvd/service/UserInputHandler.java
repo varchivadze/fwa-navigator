@@ -12,24 +12,23 @@ public class UserInputHandler {
     }
 
     public String getStartAddress() {
-        System.out.println("Please provide start point: ");
-        return scanner.nextLine();
+        System.out.print("Podaj adres początkowy (np. 'plac Mickiewicza'): ");
+        return scanner.nextLine().trim().toLowerCase();
     }
 
     public String getDestinationAddress() {
-        System.out.println("Please provide end point: ");
-        return scanner.nextLine();
+        System.out.print("Podaj adres docelowy (np. 'ulica Widok'): ");
+        return scanner.nextLine().trim().toLowerCase();
     }
 
     public TransportType getTransportType() {
         while (true) {
-            System.out.print("please choose type of transport (CAR/TRANSPORT/PEDESTRIAN): ");
+            System.out.print("Wybierz środek transportu (CAR/TRANSPORT/PEDESTRIAN): ");
             String input = scanner.nextLine().trim().toUpperCase();
-
             try {
-                return TransportType.valueOf(input);  // conversion to enum
+                return TransportType.valueOf(input);
             } catch (IllegalArgumentException e) {
-                System.out.println("Error: Wrong match, please use: CAR, TRANSPORT or PEDESTRIAN.");
+                System.out.println("Niepoprawny wybór. Wpisz: CAR, TRANSPORT lub PEDESTRIAN.");
             }
         }
     }
