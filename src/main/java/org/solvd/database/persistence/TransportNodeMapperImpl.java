@@ -5,11 +5,12 @@ import org.apache.ibatis.session.SqlSession;
 import org.solvd.database.TransportNodeMapper;
 
 import org.solvd.database.AddressStoreMyBatis;
+import org.solvd.model.EdgeNode;
 
 public class TransportNodeMapperImpl implements TransportNodeMapper {
 
     @Override
-    public void create(TransportNode transport) {
+    public void create(EdgeNode transport) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             TransportNodeMapper mapper = session.getMapper(TransportNodeMapper.class);
             mapper.create(transport);
@@ -18,7 +19,7 @@ public class TransportNodeMapperImpl implements TransportNodeMapper {
     }
 
     @Override
-    public TransportNode read(TransportNode transport) {
+    public EdgeNode read(EdgeNode transport) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             TransportNodeMapper mapper = session.getMapper(TransportNodeMapper.class);
             return mapper.read(transport);
@@ -26,7 +27,7 @@ public class TransportNodeMapperImpl implements TransportNodeMapper {
     }
 
     @Override
-    public void update(TransportNode transport) {
+    public void update(EdgeNode transport) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             TransportNodeMapper mapper = session.getMapper(TransportNodeMapper.class);
             mapper.update(transport);
@@ -35,7 +36,7 @@ public class TransportNodeMapperImpl implements TransportNodeMapper {
     }
 
     @Override
-    public void delete(TransportNode transport) {
+    public void delete(EdgeNode transport) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             TransportNodeMapper mapper = session.getMapper(TransportNodeMapper.class);
             mapper.delete(transport);

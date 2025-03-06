@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface TransportService {
 
-    void create(TransportNode transport);
+    void create(EdgeNode transport);
 
-    TransportNode read(TransportNode transport);
-    void createList(List<TransportNode> TransportNodes);
+    EdgeNode read(EdgeNode transport);
+    void createList(List<EdgeNode> TransportNodes);
 
-    void update(TransportNode transport);
-    void delete(TransportNode transport);
+    void update(EdgeNode transport);
+    void delete(EdgeNode transport);
 
 }

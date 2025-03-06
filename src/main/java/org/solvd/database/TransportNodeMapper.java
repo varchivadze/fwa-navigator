@@ -1,8 +1,10 @@
 package org.solvd.database;
 
+import org.solvd.model.EdgeNode;
+
 public interface TransportNodeMapper {
-    void create(TransportNode transport);
-    TransportNode read(TransportNode transport);
-    void update(TransportNode transport);
-    void delete(TransportNode transport);
+    void create(EdgeNode transport);
+    EdgeNode read(EdgeNode transport);
+    void update(EdgeNode transport);
+    void delete(EdgeNode transport);
 }

@@ -6,20 +6,21 @@ import org.solvd.database.PedestrianNodeMapper;
 import org.solvd.database.TransportNodeMapper;
 
 import org.solvd.database.AddressStoreMyBatis;
+import org.solvd.model.EdgeNode;
 
 public class PedestrianNodeMapperImpl implements PedestrianNodeMapper {
 
     @Override
-    public void create(PedestrianNode pedestrian) {
+    public void create(EdgeNode pedestrian) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            TransportNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
+            PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
             mapper.create(pedestrian);
             session.commit();
         }
     }
 
     @Override
-    public PedestrianNode read(PedestrianNode pedestrian) {
+    public EdgeNode read(EdgeNode pedestrian) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
             return mapper.read(pedestrian);
@@ -27,18 +28,18 @@ public class PedestrianNodeMapperImpl implements PedestrianNodeMapper {
     }
 
     @Override
-    public void update(PedestrianNode pedestrian) {
+    public void update(EdgeNode pedestrian) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            TransportNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
+            PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
             mapper.update(pedestrian);
             session.commit();
         }
     }
 
     @Override
-    public void delete(PedestrianNode pedestrian) {
+    public void delete(EdgeNode pedestrian) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            TransportNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
+            PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
             mapper.delete(pedestrian);
             session.commit();
         }

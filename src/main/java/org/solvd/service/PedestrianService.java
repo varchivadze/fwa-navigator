@@ -6,12 +6,12 @@ import java.util.List;
 
 public interface PedestrianService {
 
-    void create(PedestrianNode pedestrian);
+    void create(EdgeNode pedestrian);
 
-    PedestrianNode read(PedestrianNode pedestrian);
-    void createList(List<PedestrianNode> PedestrianNodes);
+    EdgeNode read(EdgeNode pedestrian);
+    void createList(List<EdgeNode> pedestrianNodes);
 
-    void update(PedestrianNode pedestrian);
-    void delete(PedestrianNode pedestrian);
+    void update(EdgeNode pedestrian);
+    void delete(EdgeNode pedestrian);
 
 }
