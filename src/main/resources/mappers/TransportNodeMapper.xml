@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="org.solvd.database.TransportNodeMapper">
+
+    <insert id="create" parameterType="org.solvd.model.TransportNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO transports (from_id, to_id, weight, full_path, busses)
+        VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
+    </insert>
+
+    <select id="read" parameterType="org.solvd.model.TransportNode" resultType="org.solvd.model.EdgeNode">
+        SELECT * FROM transports WHERE from_id = #{from} AND to_id = #{to}
+    </select>
+
+    <update id="update" parameterType="org.solvd.model.TransportNode">
+        UPDATE transports
+        SET from_id = #{from}, to_id = #{to}, weight = #{weight}, full_path = #{fullPath}
+        WHERE from_id = #{from} AND to_id = #{to}
+    </update>
+
+    <delete id="delete" parameterType="long">
+        DELETE FROM transports
+        WHERE from_id = #{from} AND to_id = #{to}
+    </delete>
+
+</mapper>
