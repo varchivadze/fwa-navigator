@@ -11,7 +11,7 @@
     <insert id="createList" parameterType="org.solvd.model.TransportNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO transports (from_id, to_id, weight, full_path, busses)
         VALUES
-        <foreach collection="list" item="edge" separator=",">
+        <foreach collection="list" item="transport" separator=",">
             (#{transport.from}, #{transport.to}, #{transport.weight}, #{transport.fullPath}, #{transport.busses})
         </foreach>
     </insert>

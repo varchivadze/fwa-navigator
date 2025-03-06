@@ -11,7 +11,7 @@
     <insert id="createList" parameterType="org.solvd.model.PedestrianNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO transports (from_id, to_id, weight, full_path, routes)
         VALUES
-        <foreach collection="list" item="edge" separator=",">
+        <foreach collection="list" item="pedestrian" separator=",">
             (#{pedestrian.from}, #{pedestrian.to}, #{pedestrian.weight}, #{pedestrian.fullPath}, #{pedestrian.routes})
         </foreach>
     </insert>
