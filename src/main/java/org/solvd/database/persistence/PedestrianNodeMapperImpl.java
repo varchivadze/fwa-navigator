@@ -8,6 +8,8 @@ import org.solvd.database.TransportNodeMapper;
 import org.solvd.database.AddressStoreMyBatis;
 import org.solvd.model.EdgeNode;
 
+import java.util.List;
+
 public class PedestrianNodeMapperImpl implements PedestrianNodeMapper {
 
     @Override
@@ -41,6 +43,14 @@ public class PedestrianNodeMapperImpl implements PedestrianNodeMapper {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
             mapper.delete(pedestrian);
+            session.commit();
+        }
+    }
+    @Override
+    public void createList(List<EdgeNode> pedestrian) {
+        try (SqlSession session = AddressStoreMyBatis.getSession()) {
+            PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
+            mapper.createList(pedestrian);
             session.commit();
         }
     }
