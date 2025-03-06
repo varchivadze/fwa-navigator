@@ -42,5 +42,10 @@ public class Application {
         System.out.println(noed.getCity());
         System.out.println(noed.getStreet());
         System.out.println(noed.getUnit());
+
+        System.out.println(noed);
+
+        noed.setStreet("aleja Klasztorna");
+        System.out.println(noed);
     }
 }
