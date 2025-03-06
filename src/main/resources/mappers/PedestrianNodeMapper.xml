@@ -4,12 +4,12 @@
 <mapper namespace="org.solvd.database.PedestrianNodeMapper">
 
     <insert id="create" parameterType="org.solvd.model.PedestrianNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO transports (from_id, to_id, weight, full_path, routes)
+        INSERT INTO pedestrians (from_id, to_id, weight, full_path, routes)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
     <insert id="createList" parameterType="org.solvd.model.PedestrianNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO transports (from_id, to_id, weight, full_path, routes)
+        INSERT INTO pedestrians (from_id, to_id, weight, full_path, routes)
         VALUES
         <foreach collection="list" item="pedestrian" separator=",">
             (#{pedestrian.from}, #{pedestrian.to}, #{pedestrian.weight}, #{pedestrian.fullPath}, #{pedestrian.routes})
