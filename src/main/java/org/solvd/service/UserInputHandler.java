@@ -52,7 +52,7 @@ public class UserInputHandler {
     }
 
     private List<AddressNode> getAddresses() {
-        List<AddressNode> addresses = null;
+        List<AddressNode> addresses = new ArrayList<>();
         AddressNode start = inputAddress();
         AddressNode end = inputAddress();
         addresses.add(start);
@@ -69,7 +69,7 @@ public class UserInputHandler {
 
 
             } catch (Exception e) {
-                System.out.println("Couldn't retrieve address from database");
+                System.out.println("Couldn't retrieve address from database" + e.getMessage());
             }
         }
         dbAddresses.forEach(System.out::println);

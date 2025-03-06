@@ -131,6 +131,7 @@ public class AddressNode {
     @Override
     public String toString() {
         return String.format("Address (id - %s %s %s %s %s %s)", id, country, city, street, unit, bestDist);
+
     }
 
     public String shortAddress() {

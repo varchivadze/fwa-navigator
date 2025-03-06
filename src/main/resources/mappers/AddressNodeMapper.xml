@@ -9,7 +9,7 @@
     </insert>
 
     <select id="read" parameterType="org.solvd.model.AddressNode" resultType="org.solvd.model.AddressNode">
-        SELECT * FROM addresses WHERE street_address = #{street} AND city = #{city} AND country = #{country} and unit = #{unit}
+        SELECT id, street_address, city, country, unit FROM addresses WHERE street_address = #{street} AND city = #{city} AND country = #{country} and unit = #{unit}
     </select>
 
     <select id="findAll" resultType="org.solvd.model.AddressNode">
