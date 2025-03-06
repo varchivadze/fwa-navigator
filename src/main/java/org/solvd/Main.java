@@ -2,6 +2,7 @@ package org.solvd;
 
 import org.solvd.model.AddressNode;
 import org.solvd.service.*;
+import org.solvd.service.Impl.AddressServiceImpl;
 
 
 import java.util.Map;
@@ -93,10 +94,13 @@ public class Main {
 
 
 
-        DataInitService dataInitService = new DataInitService();
-        Map<Long, AddressNode> data = dataInitService.loadGraphFromDatabase();
-        System.out.println(data);
-        dataInitService.saveGraphToDatabase(data);
+//        DataInitService dataInitService = new DataInitService();
+//        Map<Long, AddressNode> data = dataInitService.loadGraphFromDatabase();
+//        System.out.println(data);
+//        dataInitService.saveGraphToDatabase(data);
+
+        AddressService addressService = new AddressServiceImpl();
+        System.out.println(addressService.readById(1L));
 
     }
 }

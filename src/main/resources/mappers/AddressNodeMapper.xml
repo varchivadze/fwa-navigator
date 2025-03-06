@@ -17,6 +17,12 @@
         AND unit = #{unit}
     </select>
 
+    <select id="readById" parameterType="org.solvd.model.AddressNode" resultType="org.solvd.model.AddressNode">
+        SELECT id, street_address AS street, city, country, unit
+        FROM addresses
+        WHERE id = #{id}
+    </select>
+
 
     <select id="findAll" resultType="org.solvd.model.AddressNode">
         SELECT * FROM addresses

@@ -23,6 +23,12 @@ public class AddressServiceImpl implements AddressService {
         return addressesImpl.read(address);
     }
 
+
+    @Override
+    public AddressNode readById(Long id) {
+        return addressesImpl.readById(id);
+    }
+
     @Override
     public void update(AddressNode address) {
         addressesImpl.update(address);

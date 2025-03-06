@@ -28,6 +28,14 @@ public class AddressNodeMapperImpl implements AddressNodeMapper {
     }
 
     @Override
+    public AddressNode readById(Long id) {
+        try (SqlSession session = AddressStoreMyBatis.getSession()) {
+            AddressNodeMapper mapper = session.getMapper(AddressNodeMapper.class);
+            return mapper.readById(id);
+        }
+    }
+
+    @Override
     public void update(AddressNode address) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
             AddressNodeMapper mapper = session.getMapper(AddressNodeMapper.class);
