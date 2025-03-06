@@ -5,6 +5,7 @@ import org.solvd.model.EdgeNode;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.EdgeServiceImpl;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -59,7 +60,10 @@ public class UserInputHandler {
 
     private List<AddressNode> getAddresses() {
         List<AddressNode> addresses = new ArrayList<>();
+        System.out.println("--- Navigator ---");
+        System.out.println("Start point:");
         AddressNode start = inputAddress();
+        System.out.println("Destimation:");
         AddressNode end = inputAddress();
         addresses.add(start);
         addresses.add(end);
@@ -107,6 +111,11 @@ public class UserInputHandler {
             finalPath.append(edgeService.read(edgeNode1).toString());
         }
         return finalPath.toString();
+    }
+
+    public void showPath(){
+        String pathDisplay = getDetailPath();
+        System.out.println("Final path :" + pathDisplay);
     }
 
 

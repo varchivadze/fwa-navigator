@@ -2,6 +2,7 @@ package org.solvd;
 
 import org.solvd.model.EdgeNode;
 import org.solvd.service.Impl.EdgeServiceImpl;
+import org.solvd.service.UserInputHandler;
 
 public class Application {
     public static void main(String[] args) {
@@ -21,8 +22,8 @@ public class Application {
 
 
 
-//        UserInputHandler userInputHandler = new UserInputHandler();
-//        userInputHandler.getDetailPath();
+        UserInputHandler userInputHandler = new UserInputHandler();
+        userInputHandler.getDetailPath();
 
 
 
@@ -67,10 +68,10 @@ public class Application {
 //        noed.setStreet("aleja Klasztorna");
 //        System.out.println(noed);
 
-        EdgeServiceImpl service = new EdgeServiceImpl();
-        EdgeNode edgeNode = new EdgeNode();
-        edgeNode.setFrom(1L);
-        edgeNode.setTo(2L);
-        System.out.println(service.read(edgeNode));
+//        EdgeServiceImpl service = new EdgeServiceImpl();
+//        EdgeNode edgeNode = new EdgeNode();
+//        edgeNode.setFrom(1L);
+//        edgeNode.setTo(2L);
+//        System.out.println(service.read(edgeNode));
     }
 }
