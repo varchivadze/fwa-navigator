@@ -1,14 +1,7 @@
 package org.solvd;
 
-import org.solvd.controller.NavigatorController;
-import org.solvd.model.AddressNode;
-import org.solvd.service.AlgorithmService;
-import org.solvd.service.DataInitService;
-import org.solvd.service.Impl.AddressServiceImpl;
-import org.solvd.service.Impl.AlgorithmServiceImpl;
-import org.solvd.service.UserInputHandler;
-
-import java.util.Map;
+import org.solvd.model.EdgeNode;
+import org.solvd.service.Impl.EdgeServiceImpl;
 
 public class Application {
     public static void main(String[] args) {
@@ -22,8 +15,26 @@ public class Application {
         // controller of the app
        // NavigatorController navigatorController = new NavigatorController(algorithmService);
        // navigatorController.start();
-        UserInputHandler userInputHandler = new UserInputHandler();
-        userInputHandler.getDetailPath();
+
+
+
+
+
+
+//        UserInputHandler userInputHandler = new UserInputHandler();
+//        userInputHandler.getDetailPath();
+
+
+
+
+
+
+
+
+
+
+
+
        // AddressServiceImpl addressService = new AddressServiceImpl();
        // AddressNode noed = new AddressNode();
 //        noed.setCountry("RP");
@@ -55,5 +66,11 @@ public class Application {
 //
 //        noed.setStreet("aleja Klasztorna");
 //        System.out.println(noed);
+
+        EdgeServiceImpl service = new EdgeServiceImpl();
+        EdgeNode edgeNode = new EdgeNode();
+        edgeNode.setFrom(1L);
+        edgeNode.setTo(2L);
+        System.out.println(service.read(edgeNode));
     }
 }

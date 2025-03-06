@@ -1,6 +1,5 @@
 package org.solvd.service;
 
-import org.solvd.database.persistence.EdgeNodeMapperImpl;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.Impl.AddressServiceImpl;
@@ -92,11 +91,13 @@ public class UserInputHandler {
         EdgeNode edgeNode= new EdgeNode();
         edgeNode.setFrom(addressNodes.get(0).getId());
         edgeNode.setTo(addressNodes.get(1).getId());
-
-        return edgeService.read(edgeNode);
+        EdgeNode returnNode = edgeService.read(edgeNode);
+        System.out.println(returnNode);
+        return returnNode;
     }
     public String getDetailPath(){
         EdgeNode edgeNode = getPath();
+        System.out.println(edgeNode);
         List<List<Long>> pathList= pathProcessor.parseFullPath(edgeNode);
         StringBuilder finalPath = new StringBuilder();
         for (List<Long> fromTo:pathList){

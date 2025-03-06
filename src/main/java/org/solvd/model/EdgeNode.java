@@ -78,7 +78,7 @@ public class EdgeNode implements Cloneable {
 
     @Override
     public String toString() {
-        return String.format("From ID %s to ID %s weight %s", from, to, weight);
+        return String.format("From ID %s to ID %s weight %s %s %s", from, to, weight, fullPath,busses);
     }
 
     public String toStringBus() {
