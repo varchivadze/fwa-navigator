@@ -143,6 +143,9 @@ public class PathProcessor {
                 temp.add(Long.parseLong(character));
             }
         }
+        if (!temp.isEmpty()) {
+            listOfNodes.add(new ArrayList<>(temp));
+        }
         System.out.println(listOfNodes);
         return listOfNodes;
     }
