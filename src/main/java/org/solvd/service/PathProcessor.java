@@ -130,9 +130,9 @@ public class PathProcessor {
         }
     }
 
-    public List<List<Integer>> parseFullPath(EdgeNode edgeNode) {
-        List<List<Integer>> listOfNodes = new ArrayList<>();
-        List<Integer> temp = new ArrayList<>();
+    public List<List<Long>> parseFullPath(EdgeNode edgeNode) {
+        List<List<Long>> listOfNodes = new ArrayList<>();
+        List<Long> temp = new ArrayList<>();
         for (String character : edgeNode.getFullPath().split("/")) {
             if ((character == null || character.isEmpty())) {
                 if (!temp.isEmpty()) {
@@ -140,7 +140,7 @@ public class PathProcessor {
                     temp.clear();
                 }
             } else {
-                temp.add(Integer.parseInt(character));
+                temp.add(Long.parseLong(character));
             }
         }
         System.out.println(listOfNodes);

@@ -1,7 +1,10 @@
 package org.solvd.service;
 
+import org.solvd.database.persistence.EdgeNodeMapperImpl;
 import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
 import org.solvd.service.Impl.AddressServiceImpl;
+import org.solvd.service.Impl.EdgeServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +15,14 @@ public class UserInputHandler {
 
     private Scanner scanner;
     private AddressServiceImpl addressService;
+    private EdgeServiceImpl edgeService;
+    private PathProcessor pathProcessor;
 
     public UserInputHandler() {
         scanner = new Scanner(System.in);
         addressService = new AddressServiceImpl();
+        edgeService = new EdgeServiceImpl();
+        pathProcessor = new PathProcessor();
     }
 
 
@@ -79,6 +86,26 @@ public class UserInputHandler {
             System.out.println("There is no address from db");
             return null;
         }
+    }
+    public EdgeNode getPath(){
+        List<AddressNode> addressNodes = getAddressesDb();
+        EdgeNode edgeNode= new EdgeNode();
+        edgeNode.setFrom(addressNodes.get(0).getId());
+        edgeNode.setTo(addressNodes.get(1).getId());
+
+        return edgeService.read(edgeNode);
+    }
+    public String getDetailPath(){
+        EdgeNode edgeNode = getPath();
+        List<List<Long>> pathList= pathProcessor.parseFullPath(edgeNode);
+        StringBuilder finalPath = new StringBuilder();
+        for (List<Long> fromTo:pathList){
+            EdgeNode edgeNode1 = new EdgeNode();
+            edgeNode1.setFrom(fromTo.get(0));
+            edgeNode1.setTo(fromTo.get(1));
+            finalPath.append(edgeService.read(edgeNode1).toString());
+        }
+        return finalPath.toString();
     }
 
 
