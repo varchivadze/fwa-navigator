@@ -1,35 +1,85 @@
 package org.solvd.service;
 
-import org.solvd.model.TransportType;
+import org.solvd.model.AddressNode;
+import org.solvd.service.Impl.AddressServiceImpl;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Scanner;
 
 public class UserInputHandler {
+
     private Scanner scanner;
+    private AddressServiceImpl addressService;
 
     public UserInputHandler() {
-        this.scanner = new Scanner(System.in);
+        scanner = new Scanner(System.in);
+        addressService = new AddressServiceImpl();
     }
 
-    public String getStartAddress() {
-        System.out.print("Provide starting address (ex. 'plac Mickiewicza'): ");
-        return scanner.nextLine().trim().toLowerCase();
+
+    private AddressNode inputAddress() {
+
+
+        AddressNode addressNode = new AddressNode();
+
+        System.out.println("");
+
+        System.out.println("Enter country");
+        String country = scanner.nextLine();
+        addressNode.setCountry(country);
+
+        System.out.println("Enter city");
+
+        String city = scanner.nextLine();
+        addressNode.setCity(city);
+
+
+        System.out.println("Enter street");
+
+        String street = scanner.nextLine();
+        addressNode.setStreet(street);
+
+
+        System.out.println("Enter unit");
+
+        String unit = scanner.nextLine();
+        addressNode.setUnit(unit);
+
+        return addressNode;
+
     }
 
-    public String getDestinationAddress() {
-        System.out.print("Provide destination (ex. 'ulica Widok'): ");
-        return scanner.nextLine().trim().toLowerCase();
+    private List<AddressNode> getAddresses() {
+        List<AddressNode> addresses = null;
+        AddressNode start = inputAddress();
+        AddressNode end = inputAddress();
+        addresses.add(start);
+        addresses.add(end);
+        return addresses;
     }
 
-    public TransportType getTransportType() {
-        while (true) {
-            System.out.print("Please choose transport type (CAR/TRANSPORT/PEDESTRIAN): ");
-            String input = scanner.nextLine().trim().toUpperCase();
+    public List<AddressNode> getAddressesDb() {
+        List<AddressNode> addresses = getAddresses();
+        List<AddressNode> dbAddresses = new ArrayList<>();
+        for (AddressNode address : addresses) {
             try {
-                return TransportType.valueOf(input);
-            } catch (IllegalArgumentException e) {
-                System.out.println("Incorect selection, please use : CAR, TRANSPORT lub PEDESTRIAN.");
+                dbAddresses.add(addressService.read(address));
+
+
+            } catch (Exception e) {
+                System.out.println("Couldn't retrieve address from database");
             }
         }
+        dbAddresses.forEach(System.out::println);
+        if (dbAddresses.stream().anyMatch(Objects::nonNull)) {
+            return dbAddresses;
+        } else {
+            System.out.println("There is no address from db");
+            return null;
+        }
     }
+
+
 }
