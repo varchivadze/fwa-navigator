@@ -9,5 +9,4 @@ public interface AlgorithmService {
 
     Set<String> getAvailableAddresses();
 
-    Route calculateRoute(String startAddress, String destinationAddress, TransportType transportType);
 }

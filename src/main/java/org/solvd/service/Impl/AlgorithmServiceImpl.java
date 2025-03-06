@@ -25,40 +25,7 @@ public class AlgorithmServiceImpl implements AlgorithmService {
                 .collect(Collectors.toSet());
     }
 
-    @Override
-    public Route calculateRoute(String startAddress, String destinationAddress, TransportType transportType) {
 
-        adjustGraphWeights(transportType);
-
-        Long startId = findAddressId(startAddress);
-        Long destinationId = findAddressId(destinationAddress);
-
-        if (startId == null || destinationId == null) {
-            System.out.println("Error, incorrect address");
-            return null;
-        }
-
-        EdgeNode bestPath = mapMainNodes.get(startId).getBestDist().get(destinationId);
-        if (bestPath == null) {
-            System.out.println("Error: No availabe route.");
-            return null;
-        }
-
-        String friendlyPath = showPathToUser(bestPath.getFullPath(), startAddress, destinationAddress);
-
-        return new Route(startAddress, destinationAddress, friendlyPath, bestPath.getWeight());
-    }
-
-    private void adjustGraphWeights(TransportType transportType) {
-        for (AddressNode node : mapMainNodes.values()) {
-            for (Map.Entry<Long, EdgeNode> entry : node.getBestDist().entrySet()) {
-                EdgeNode edge = entry.getValue();
-                double baseWeight = edge.getWeight();
-                double adjustedWeight = baseWeight * transportType.getWeightMultiplier();
-                edge.setWeight(adjustedWeight);
-            }
-        }
-    }
 
     private Long findAddressId(String address) {
         for (AddressNode node : mapMainNodes.values()) {

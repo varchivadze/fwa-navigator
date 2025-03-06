@@ -23,7 +23,7 @@ public class Application {
 
 
         UserInputHandler userInputHandler = new UserInputHandler();
-        userInputHandler.getDetailPath();
+        userInputHandler.showPath();
 
 
 

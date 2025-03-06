@@ -1,17 +1,21 @@
 package org.solvd.model;
 
 public enum TransportType {
-    CAR(1.0),
-    TRANSPORT(0.5),
-    PEDESTRIAN(3.0);
+    CAR,
+    TRANSPORT,
+    PEDESTRIAN;
 
-    private final double weightMultiplier;
-
-    TransportType(double weightMultiplier) {
-        this.weightMultiplier = weightMultiplier;
-    }
-
-    public double getWeightMultiplier() {
-        return weightMultiplier;
+    public static TransportType getTransportType(String number) {
+        switch (number) {
+            case "1":
+                return CAR;
+            case "2":
+                return TRANSPORT;
+            case "3":
+                return PEDESTRIAN;
+        }
+        return null;
     }
 }
+
+

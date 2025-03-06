@@ -2,6 +2,7 @@ package org.solvd.service;
 
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
+import org.solvd.model.TransportType;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.EdgeServiceImpl;
 
@@ -17,12 +18,14 @@ public class UserInputHandler {
     private AddressServiceImpl addressService;
     private EdgeServiceImpl edgeService;
     private PathProcessor pathProcessor;
+    private TransportType transportType;
 
     public UserInputHandler() {
         scanner = new Scanner(System.in);
         addressService = new AddressServiceImpl();
         edgeService = new EdgeServiceImpl();
         pathProcessor = new PathProcessor();
+        transportType = TransportType.CAR;
     }
 
 
@@ -61,9 +64,17 @@ public class UserInputHandler {
     private List<AddressNode> getAddresses() {
         List<AddressNode> addresses = new ArrayList<>();
         System.out.println("--- Navigator ---");
+
+
+        System.out.println("Type of transport:");
+        System.out.println("1 - CAR");
+        System.out.println("2 - BUS");
+        System.out.println("3 - PEDESTRIAN");
+        String type = scanner.nextLine();
+        TransportType transportType = TransportType.getTransportType(type);
         System.out.println("Start point:");
         AddressNode start = inputAddress();
-        System.out.println("Destimation:");
+        System.out.println("Destination:");
         AddressNode end = inputAddress();
         addresses.add(start);
         addresses.add(end);
@@ -104,11 +115,16 @@ public class UserInputHandler {
         System.out.println(edgeNode);
         List<List<Long>> pathList= pathProcessor.parseFullPath(edgeNode);
         StringBuilder finalPath = new StringBuilder();
+        finalPath.append(addressService.readById(pathList.get(0).get(0)).shortAddress());
         for (List<Long> fromTo:pathList){
             EdgeNode edgeNode1 = new EdgeNode();
             edgeNode1.setFrom(fromTo.get(0));
             edgeNode1.setTo(fromTo.get(1));
-            finalPath.append(edgeService.read(edgeNode1).toString());
+            finalPath.append(addressService.readById(fromTo.get(1)).shortAddress());
+            finalPath.append("---->");
+            if (transportType.equals(TransportType.TRANSPORT)){
+            finalPath.append(edgeService.read(edgeNode1).getBusses());}
+
         }
         return finalPath.toString();
     }
