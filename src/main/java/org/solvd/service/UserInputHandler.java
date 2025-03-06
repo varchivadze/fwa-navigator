@@ -12,23 +12,23 @@ public class UserInputHandler {
     }
 
     public String getStartAddress() {
-        System.out.print("Podaj adres początkowy (np. 'plac Mickiewicza'): ");
+        System.out.print("Provide starting address (ex. 'plac Mickiewicza'): ");
         return scanner.nextLine().trim().toLowerCase();
     }
 
     public String getDestinationAddress() {
-        System.out.print("Podaj adres docelowy (np. 'ulica Widok'): ");
+        System.out.print("Provide destination (ex. 'ulica Widok'): ");
         return scanner.nextLine().trim().toLowerCase();
     }
 
     public TransportType getTransportType() {
         while (true) {
-            System.out.print("Wybierz środek transportu (CAR/TRANSPORT/PEDESTRIAN): ");
+            System.out.print("Please choose transport type (CAR/TRANSPORT/PEDESTRIAN): ");
             String input = scanner.nextLine().trim().toUpperCase();
             try {
                 return TransportType.valueOf(input);
             } catch (IllegalArgumentException e) {
-                System.out.println("Niepoprawny wybór. Wpisz: CAR, TRANSPORT lub PEDESTRIAN.");
+                System.out.println("Incorect selection, please use : CAR, TRANSPORT lub PEDESTRIAN.");
             }
         }
     }

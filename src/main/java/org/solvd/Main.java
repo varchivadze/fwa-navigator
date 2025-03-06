@@ -1,17 +1,9 @@
 package org.solvd;
 
-import org.solvd.database.AddressStoreMyBatis;
-import org.solvd.database.persistence.AddressNodeMapperImpl;
-import org.solvd.database.persistence.EdgeNodeMapperImpl;
 import org.solvd.model.AddressNode;
-import org.solvd.model.EdgeNode;
 import org.solvd.service.*;
-import org.solvd.service.impl.AddressServiceImpl;
-import org.solvd.service.impl.EdgeServiceImpl;
 
-import java.io.File;
-import java.net.URL;
-import java.util.List;
+
 import java.util.Map;
 
 public class Main {
