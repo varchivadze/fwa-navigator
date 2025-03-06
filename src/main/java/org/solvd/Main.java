@@ -1,8 +1,10 @@
 package org.solvd;
 
 import org.solvd.model.AddressNode;
+import org.solvd.model.EdgeNode;
 import org.solvd.service.*;
 import org.solvd.service.Impl.AddressServiceImpl;
+import org.solvd.service.Impl.PedestrianServiceImpl;
 import org.solvd.view.Test;
 
 
@@ -95,8 +97,14 @@ public class Main {
 
 
 
-        DataInitService dataInitService = new DataInitService();
-        dataInitService.fullDump();
-
+//        DataInitService dataInitService = new DataInitService();
+//        dataInitService.fullDump();
+        PedestrianServiceImpl pedestrianService = new PedestrianServiceImpl();
+        EdgeNode edgeNode = new EdgeNode();
+        edgeNode.setId(22L);
+        edgeNode.setFrom(21L);
+        edgeNode.setTo(22L);
+        edgeNode.setWeight(12.5);
+        pedestrianService.create(edgeNode);
     }
 }
