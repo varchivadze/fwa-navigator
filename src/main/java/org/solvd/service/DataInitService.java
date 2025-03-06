@@ -21,11 +21,11 @@ public class DataInitService {
         this.processor = new PathProcessor();
     }
 
-    public Map<Long, AddressNode> loadGraphFromDatabase() {
+    public Map<Long, AddressNode> loadGraphFromDatabase(String main, String edges) {
 
         ClassLoader classLoader = DataInitService.class.getClassLoader();
-        java.net.URL mainNodesURL = classLoader.getResource("warsaw_main_nodes.csv");
-        java.net.URL edgesURL = classLoader.getResource("warsaw_edges.csv");
+        java.net.URL mainNodesURL = classLoader.getResource(main);
+        java.net.URL edgesURL = classLoader.getResource(edges);
 
         if (mainNodesURL == null || edgesURL == null) {
             throw new RuntimeException("Couldn't find CSV file!");
@@ -39,10 +39,12 @@ public class DataInitService {
 
         return graph;
     }
-    public void saveGraphToDatabase(Map<Long, AddressNode> graph) {
-        for (AddressNode node : graph.values()) {
+    public void saveGraphToDatabase(Map<Long, AddressNode> graph, Boolean dumpMainNodes) {
+        if (dumpMainNodes) {
+            for (AddressNode node : graph.values()) {
 
-            addressDAO.create(node);
+                addressDAO.create(node);
+            }
         }
         for (AddressNode node : graph.values()) {
             List<EdgeNode> edgeNodeList = new ArrayList<>();
@@ -50,5 +52,17 @@ public class DataInitService {
             edgeDAO.createList(edgeNodeList);
 
         }
+    }
+
+    public void fullDump() {
+
+        Map<Long, AddressNode> data = loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges.csv");
+        saveGraphToDatabase(data, true);
+
+        Map<Long, AddressNode> dataPed = loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges_pedestrian.csv");
+        saveGraphToDatabase(dataPed, false);
+
+        Map<Long, AddressNode> dataTransp = loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges_transport.csv");
+        saveGraphToDatabase(dataTransp, false);
     }
 }

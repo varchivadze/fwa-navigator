@@ -8,6 +8,7 @@
         VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
+
     <select id="read" parameterType="org.solvd.model.PedestrianNode" resultType="org.solvd.model.PedestrianNode">
         SELECT * FROM pedestrians WHERE from_id = #{from} AND to_id = #{to}
     </select>
