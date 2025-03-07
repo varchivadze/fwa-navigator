@@ -3,12 +3,12 @@
 
 <mapper namespace="org.solvd.database.TransportNodeMapper">
 
-    <insert id="create" parameterType="org.solvd.model.TransportNode" useGeneratedKeys="true" keyProperty="id">
+    <insert id="create" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO transports (from_id, to_id, weight, full_path, busses)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
-    <insert id="createList" parameterType="org.solvd.model.TransportNode" useGeneratedKeys="true" keyProperty="id">
+    <insert id="createList" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO transports (from_id, to_id, weight, full_path, busses)
         VALUES
         <foreach collection="list" item="transport" separator=",">
@@ -16,11 +16,11 @@
         </foreach>
     </insert>
 
-    <select id="read" parameterType="org.solvd.model.TransportNode" resultType="org.solvd.model.EdgeNode">
+    <select id="read" parameterType="org.solvd.model.EdgeNode" resultMap="TransportNodeResultMap">
         SELECT * FROM transports WHERE from_id = #{from} AND to_id = #{to}
     </select>
 
-    <update id="update" parameterType="org.solvd.model.TransportNode">
+    <update id="update" parameterType="org.solvd.model.EdgeNode">
         UPDATE transports
         SET from_id = #{from}, to_id = #{to}, weight = #{weight}, full_path = #{fullPath}
         WHERE from_id = #{from} AND to_id = #{to}

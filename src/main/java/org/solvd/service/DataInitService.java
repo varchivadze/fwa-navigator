@@ -4,6 +4,8 @@ import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.EdgeServiceImpl;
+import org.solvd.service.Impl.PedestrianServiceImpl;
+import org.solvd.service.impl.TransportServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,11 +16,15 @@ public class DataInitService {
     private AddressService addressDAO;
     private EdgeService edgeDAO;
     private PathProcessor processor;
+    private PedestrianService pedestrianService;
+    private TransportService transportService;
 
     public DataInitService() {
         this.addressDAO = new AddressServiceImpl();
         this.edgeDAO = new EdgeServiceImpl();
         this.processor = new PathProcessor();
+        pedestrianService = new PedestrianServiceImpl();
+        transportService = new TransportServiceImpl();
     }
 
     public Map<Long, AddressNode> loadGraphFromDatabase(String main, String edges) {
@@ -54,15 +60,45 @@ public class DataInitService {
         }
     }
 
+    public void saveGraphToDatabasePed(Map<Long, AddressNode> graph, Boolean dumpMainNodes) {
+        if (dumpMainNodes) {
+            for (AddressNode node : graph.values()) {
+
+                addressDAO.create(node);
+            }
+        }
+        for (AddressNode node : graph.values()) {
+            List<EdgeNode> edgeNodeList = new ArrayList<>();
+            edgeNodeList.addAll(node.getBestDist().values());
+            pedestrianService.createList(edgeNodeList);
+
+        }
+    }
+
+    public void saveGraphToDatabaseTra(Map<Long, AddressNode> graph, Boolean dumpMainNodes) {
+        if (dumpMainNodes) {
+            for (AddressNode node : graph.values()) {
+
+                addressDAO.create(node);
+            }
+        }
+        for (AddressNode node : graph.values()) {
+            List<EdgeNode> edgeNodeList = new ArrayList<>();
+            edgeNodeList.addAll(node.getBestDist().values());
+            transportService.createList(edgeNodeList);
+
+        }
+    }
+
     public void fullDump() {
 
         Map<Long, AddressNode> data = loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges.csv");
         saveGraphToDatabase(data, true);
 
         Map<Long, AddressNode> dataPed = loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges_pedestrian.csv");
-        saveGraphToDatabase(dataPed, false);
+        saveGraphToDatabasePed(dataPed, false);
 
         Map<Long, AddressNode> dataTransp = loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges_transport.csv");
-        saveGraphToDatabase(dataTransp, false);
+        saveGraphToDatabaseTra(dataTransp, false);
     }
 }

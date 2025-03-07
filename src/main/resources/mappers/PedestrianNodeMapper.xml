@@ -3,25 +3,24 @@
 
 <mapper namespace="org.solvd.database.PedestrianNodeMapper">
 
-    <insert id="create" parameterType="org.solvd.model.PedestrianNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO transports (from_id, to_id, weight, full_path, routes)
+    <insert id="create" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pedestrians (from_id, to_id, weight, full_path, busses)
         VALUES (#{from}, #{to}, #{weight}, #{fullPath}, #{busses})
     </insert>
 
-    <insert id="createList" parameterType="org.solvd.model.PedestrianNode" useGeneratedKeys="true" keyProperty="id">
-        INSERT INTO transports (from_id, to_id, weight, full_path, routes)
+    <insert id="createList" parameterType="org.solvd.model.EdgeNode" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO pedestrians (from_id, to_id, weight, full_path, busses)
         VALUES
         <foreach collection="list" item="pedestrian" separator=",">
-            (#{pedestrian.from}, #{pedestrian.to}, #{pedestrian.weight}, #{pedestrian.fullPath}, #{pedestrian.routes})
+            (#{pedestrian.from}, #{pedestrian.to}, #{pedestrian.weight}, #{pedestrian.fullPath}, #{pedestrian.busses})
         </foreach>
     </insert>
 
-
-    <select id="read" parameterType="org.solvd.model.PedestrianNode" resultType="org.solvd.model.PedestrianNode">
+    <select id="read" parameterType="org.solvd.model.EdgeNode" resultMap="PedestrianNodeResultMap">
         SELECT * FROM pedestrians WHERE from_id = #{from} AND to_id = #{to}
     </select>
 
-    <update id="update" parameterType="org.solvd.model.PedestrianNode">
+    <update id="update" parameterType="org.solvd.model.EdgeNode">
         UPDATE pedestrians
         SET from_id = #{from}, to_id = #{to}, weight = #{weight}, full_path = #{fullPath}
         WHERE from_id = #{from} AND to_id = #{to}
@@ -36,7 +35,7 @@
         <result property="to" column="to_id"/>
         <result property="weight" column="weight"/>
         <result property="fullPath" column="full_path"/>
-        <result property="routes" column="routes"/>
+        <result property="busses" column="busses"/>
     </resultMap>
 
 </mapper>

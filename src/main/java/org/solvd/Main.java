@@ -5,9 +5,10 @@ import org.solvd.model.EdgeNode;
 import org.solvd.service.*;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.PedestrianServiceImpl;
-import org.solvd.view.Test;
 
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -71,7 +72,7 @@ public class Main {
 
 //
 //
-//        EdgeService edgeDAO = new EdgeServiceImpl();
+//        PedestrianServiceImpl edgeDAO = new PedestrianServiceImpl();
 //
 
 //        EdgeNode edgeNode = new EdgeNode();
@@ -79,7 +80,15 @@ public class Main {
 //        edgeNode.setFrom(21L);
 //        edgeNode.setTo(22L);
 //        edgeNode.setWeight(12.5);
-//        edgeDAO.create(edgeNode);
+//        EdgeNode edgeNode2 = new EdgeNode();
+//        edgeNode2.setId(22L);
+//        edgeNode2.setFrom(21L);
+//        edgeNode2.setTo(22L);
+//        edgeNode2.setWeight(12.5);
+//        List<EdgeNode> list = new ArrayList<>();
+//        list.add(edgeNode);
+//        list.add(edgeNode2);
+//        edgeDAO.createList(list);
 //
 
 //        EdgeNode retrievedEdge = edgeDAO.read(edgeNode);
@@ -97,14 +106,8 @@ public class Main {
 
 
 
-//        DataInitService dataInitService = new DataInitService();
-//        dataInitService.fullDump();
-        PedestrianServiceImpl pedestrianService = new PedestrianServiceImpl();
-        EdgeNode edgeNode = new EdgeNode();
-        edgeNode.setId(22L);
-        edgeNode.setFrom(21L);
-        edgeNode.setTo(22L);
-        edgeNode.setWeight(12.5);
-        pedestrianService.create(edgeNode);
+        DataInitService dataInitService = new DataInitService();
+        dataInitService.fullDump();
+
     }
 }
