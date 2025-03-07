@@ -49,7 +49,7 @@ public class TransportNodeMapperImpl implements TransportNodeMapper {
     @Override
     public void createList(List<EdgeNode> transport) {
         try (SqlSession session = AddressStoreMyBatis.getSession()) {
-            PedestrianNodeMapper mapper = session.getMapper(PedestrianNodeMapper.class);
+            TransportNodeMapper mapper = session.getMapper(TransportNodeMapper.class);
             mapper.createList(transport);
             session.commit();
         }

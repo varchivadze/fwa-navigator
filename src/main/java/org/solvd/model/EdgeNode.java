@@ -10,12 +10,12 @@ public class EdgeNode implements Cloneable {
     private Long from;
     @CsvBindByName(column = "To")
     private Long to;
-    @CsvBindByName(column = "Weight (km)")
+    @CsvBindByName(column = "Weight")
     private double weight;
 
-    @CsvBindByName(column = "path")
     private String fullPath;
-
+    private String test;
+    private String test2;
     @CsvBindByName(column = "Routes")
     private String busses;
 
@@ -26,6 +26,22 @@ public class EdgeNode implements Cloneable {
         } catch (CloneNotSupportedException e) {
             throw new AssertionError();
         }
+    }
+
+    public String getTest() {
+        return test;
+    }
+
+    public void setTest(String test) {
+        this.test = test;
+    }
+
+    public String getTest2() {
+        return test2;
+    }
+
+    public void setTest2(String test2) {
+        this.test2 = test2;
     }
 
     public Long getId() {

@@ -1,12 +1,19 @@
 package org.solvd;
 
+import com.opencsv.bean.CsvToBean;
+import com.opencsv.bean.CsvToBeanBuilder;
 import org.solvd.model.AddressNode;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.*;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.PedestrianServiceImpl;
+import org.solvd.service.impl.TransportServiceImpl;
 
 
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -105,9 +112,48 @@ public class Main {
 //        addressDAO.delete(addressNode2);
 
 
-
+//
         DataInitService dataInitService = new DataInitService();
         dataInitService.fullDump();
+
+//        Map<Long, AddressNode> data = dataInitService.loadGraphFromDatabase("warsaw_main_nodes.csv", "warsaw_edges_transport.csv");
+//        System.out.println(data);
+//        TransportService transportService = new TransportServiceImpl();
+//        try {
+//            File file = new File("src/main/resources/warsaw_edges_transport.csv");
+//            FileReader fileReader = new FileReader(file, StandardCharsets.UTF_8);
+//
+//            CsvToBean<EdgeNode> csvToBean = new CsvToBeanBuilder<EdgeNode>(fileReader)
+//                    .withType(EdgeNode.class)
+//                    .withIgnoreLeadingWhiteSpace(true)
+//                    .build();
+//
+//            List<EdgeNode> edgeNodes = csvToBean.parse();
+//            System.out.println(edgeNodes.get(1));
+//        } catch (IOException e) {
+//            System.out.println(e.getMessage());
+//        }
+
+//      EdgeNode edgeNode = new EdgeNode();
+//        edgeNode.setId(22L);
+//        edgeNode.setFrom(21L);
+//        edgeNode.setTo(22L);
+//        edgeNode.setWeight(12.5);
+//        edgeNode.setBusses("123");
+//        EdgeNode edgeNode2 = new EdgeNode();
+//        edgeNode2.setId(22L);
+//        edgeNode2.setFrom(21L);
+//        edgeNode2.setTo(22L);
+//        edgeNode2.setWeight(12.5);
+//        edgeNode.setBusses("21");
+//        List<EdgeNode> list = new ArrayList<>();
+//        list.add(edgeNode);
+//        list.add(edgeNode2);
+//        TransportService transportService = new TransportServiceImpl();
+//        transportService.createList(list);
+
+
+
 
     }
 }
