@@ -1,11 +1,9 @@
 package org.solvd.service.Impl;
 
-
-import org.solvd.database.AddressNodeMapper;
 import org.solvd.database.EdgeNodeMapper;
-import org.solvd.database.persistence.AddressNodeMapperImpl;
+
 import org.solvd.database.persistence.EdgeNodeMapperImpl;
-import org.solvd.model.AddressNode;
+
 import org.solvd.model.EdgeNode;
 import org.solvd.service.EdgeService;
 

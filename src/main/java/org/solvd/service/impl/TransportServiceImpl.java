@@ -1,4 +1,4 @@
-package org.solvd.service.impl;
+package org.solvd.service.Impl;
 
 import org.solvd.database.TransportNodeMapper;
 import org.solvd.database.persistence.TransportNodeMapperImpl;

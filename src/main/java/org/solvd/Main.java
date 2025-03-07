@@ -7,7 +7,7 @@ import org.solvd.model.EdgeNode;
 import org.solvd.service.*;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.PedestrianServiceImpl;
-import org.solvd.service.impl.TransportServiceImpl;
+import org.solvd.service.Impl.TransportServiceImpl;
 
 
 import java.io.File;

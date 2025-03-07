@@ -76,7 +76,10 @@ public class UserInputHandler {
         System.out.println("2 - BUS");
         System.out.println("3 - PEDESTRIAN");
         String type = scanner.nextLine();
-        transportType = TransportType.getTransportType(type);
+        if (!type.isEmpty()) {
+            transportType = TransportType.getTransportType(type);
+        }
+
         System.out.println("Start point:");
         AddressNode start = inputAddress();
         System.out.println("Destination:");
@@ -133,10 +136,18 @@ public class UserInputHandler {
             EdgeNode edgeNode1 = new EdgeNode();
             edgeNode1.setFrom(fromTo.get(0));
             edgeNode1.setTo(fromTo.get(1));
-            finalPath.append(addressService.readById(fromTo.get(1)).shortAddress());
-            finalPath.append("---->");
+
+            finalPath.append("\n Go to ->>>" + addressService.readById(fromTo.get(1)).shortAddress());
+
             if (transportType.equals(TransportType.TRANSPORT)) {
-                finalPath.append(edgeService.read(edgeNode1).getBusses());
+                String currentBussNode = transportService.read(edgeNode1).getBusses();
+                System.out.println(edgeNode1);
+                if (currentBussNode != null && !currentBussNode.trim().isEmpty()) {
+                    finalPath.append(" \n----> Busses ");
+                    finalPath.append(currentBussNode);
+                    finalPath.append(" <----\n");
+                }
+
             }
 
         }

@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.Reader;
 
 public class AddressStoreMyBatis {
-    private static SqlSessionFactory sqlSessionFactory;
+    private static final SqlSessionFactory sqlSessionFactory;
 
     static {
         try (Reader reader = org.apache.ibatis.io.Resources.getResourceAsReader("mybatis-config.xml")) {
