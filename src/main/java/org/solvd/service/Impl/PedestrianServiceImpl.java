@@ -1,12 +1,9 @@
 package org.solvd.service.Impl;
 
 import org.solvd.database.PedestrianNodeMapper;
-import org.solvd.database.TransportNodeMapper;
 import org.solvd.database.persistence.PedestrianNodeMapperImpl;
-import org.solvd.database.persistence.TransportNodeMapperImpl;
 import org.solvd.model.EdgeNode;
 import org.solvd.service.PedestrianService;
-import org.solvd.service.TransportService;
 
 import java.util.List;
 

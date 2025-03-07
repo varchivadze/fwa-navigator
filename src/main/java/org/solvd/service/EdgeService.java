@@ -13,6 +13,7 @@ public interface EdgeService {
     EdgeNode read(EdgeNode edge);
 
     void update(EdgeNode edgeNode);
+
     void delete(EdgeNode edgeNode);
 
 }

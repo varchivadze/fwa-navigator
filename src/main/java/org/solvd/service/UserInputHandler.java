@@ -6,7 +6,7 @@ import org.solvd.model.TransportType;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.EdgeServiceImpl;
 import org.solvd.service.Impl.PedestrianServiceImpl;
-import org.solvd.service.impl.TransportServiceImpl;
+import org.solvd.service.Impl.TransportServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +19,9 @@ public class UserInputHandler {
     private final AddressServiceImpl addressService;
     private final EdgeServiceImpl edgeService;
     private final PathProcessor pathProcessor;
-    private TransportType transportType;
     private final PedestrianService pedestrianService;
     private final TransportService transportService;
+    private TransportType transportType;
 
     public UserInputHandler() {
         scanner = new Scanner(System.in);

@@ -5,7 +5,7 @@ import org.solvd.model.EdgeNode;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.EdgeServiceImpl;
 import org.solvd.service.Impl.PedestrianServiceImpl;
-import org.solvd.service.impl.TransportServiceImpl;
+import org.solvd.service.Impl.TransportServiceImpl;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +13,11 @@ import java.util.Map;
 
 public class DataInitService {
 
-    private AddressService addressDAO;
-    private EdgeService edgeDAO;
-    private PathProcessor processor;
-    private PedestrianService pedestrianService;
-    private TransportService transportService;
+    private final AddressService addressDAO;
+    private final  EdgeService edgeDAO;
+    private final PathProcessor processor;
+    private final PedestrianService pedestrianService;
+    private final TransportService transportService;
 
     public DataInitService() {
         this.addressDAO = new AddressServiceImpl();

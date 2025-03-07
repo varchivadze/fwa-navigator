@@ -3,7 +3,6 @@ package org.solvd.database.persistence;
 import org.apache.ibatis.session.SqlSession;
 
 import org.solvd.database.PedestrianNodeMapper;
-import org.solvd.database.TransportNodeMapper;
 
 import org.solvd.database.AddressStoreMyBatis;
 import org.solvd.model.EdgeNode;
