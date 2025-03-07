@@ -20,25 +20,7 @@ public class NavigatorController {
         this.outputFormatter = new OutputFormatter();
     }
 
-//    public void start() {
-//        System.out.println("-- Navigator --");
-//
-//        String startAddress = userInputHandler.getStartAddress();
-//        String destinationAddress = userInputHandler.getDestinationAddress();
-//        TransportType transportType = userInputHandler.getTransportType();
-//
-//        if (!validationService.isValidAddress(startAddress) || !validationService.isValidAddress(destinationAddress)) {
-//            System.out.println("Error: wrong address");
-//            return;
-//        }
-//
-//        System.out.println("Calculating Route");
-//        Route computedRoute = algorithmService.calculateRoute(startAddress, destinationAddress, transportType);
-//
-//        if (computedRoute != null) {
-//            outputFormatter.displayResult(computedRoute);
-//        } else {
-//            System.out.println("Cannot find route");
-//        }
-
+    public void start() {
+        userInputHandler.showPath();
+    }
 }

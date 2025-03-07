@@ -5,8 +5,9 @@ import org.solvd.model.EdgeNode;
 import org.solvd.model.TransportType;
 import org.solvd.service.Impl.AddressServiceImpl;
 import org.solvd.service.Impl.EdgeServiceImpl;
+import org.solvd.service.Impl.PedestrianServiceImpl;
+import org.solvd.service.impl.TransportServiceImpl;
 
-import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -14,11 +15,13 @@ import java.util.Scanner;
 
 public class UserInputHandler {
 
-    private Scanner scanner;
-    private AddressServiceImpl addressService;
-    private EdgeServiceImpl edgeService;
-    private PathProcessor pathProcessor;
+    private final Scanner scanner;
+    private final AddressServiceImpl addressService;
+    private final EdgeServiceImpl edgeService;
+    private final PathProcessor pathProcessor;
     private TransportType transportType;
+    private final PedestrianService pedestrianService;
+    private final TransportService transportService;
 
     public UserInputHandler() {
         scanner = new Scanner(System.in);
@@ -26,6 +29,8 @@ public class UserInputHandler {
         edgeService = new EdgeServiceImpl();
         pathProcessor = new PathProcessor();
         transportType = TransportType.CAR;
+        pedestrianService = new PedestrianServiceImpl();
+        transportService = new TransportServiceImpl();
     }
 
 
@@ -34,7 +39,7 @@ public class UserInputHandler {
 
         AddressNode addressNode = new AddressNode();
 
-        System.out.println("");
+        System.out.println();
 
         System.out.println("Enter country");
         String country = scanner.nextLine();
@@ -71,7 +76,7 @@ public class UserInputHandler {
         System.out.println("2 - BUS");
         System.out.println("3 - PEDESTRIAN");
         String type = scanner.nextLine();
-        TransportType transportType = TransportType.getTransportType(type);
+        transportType = TransportType.getTransportType(type);
         System.out.println("Start point:");
         AddressNode start = inputAddress();
         System.out.println("Destination:");
@@ -101,35 +106,44 @@ public class UserInputHandler {
             return null;
         }
     }
-    public EdgeNode getPath(){
+
+    public EdgeNode getPath() {
         List<AddressNode> addressNodes = getAddressesDb();
-        EdgeNode edgeNode= new EdgeNode();
+        EdgeNode edgeNode = new EdgeNode();
         edgeNode.setFrom(addressNodes.get(0).getId());
         edgeNode.setTo(addressNodes.get(1).getId());
-        EdgeNode returnNode = edgeService.read(edgeNode);
+        EdgeNode returnNode = null;
+        switch (transportType) {
+            case TransportType.CAR -> returnNode = edgeService.read(edgeNode);
+            case TransportType.TRANSPORT -> returnNode = transportService.read(edgeNode);
+            default -> returnNode = pedestrianService.read(edgeNode);
+        }
+
         System.out.println(returnNode);
         return returnNode;
     }
-    public String getDetailPath(){
+
+    public String getDetailPath() {
         EdgeNode edgeNode = getPath();
         System.out.println(edgeNode);
-        List<List<Long>> pathList= pathProcessor.parseFullPath(edgeNode);
+        List<List<Long>> pathList = pathProcessor.parseFullPath(edgeNode);
         StringBuilder finalPath = new StringBuilder();
         finalPath.append(addressService.readById(pathList.get(0).get(0)).shortAddress());
-        for (List<Long> fromTo:pathList){
+        for (List<Long> fromTo : pathList) {
             EdgeNode edgeNode1 = new EdgeNode();
             edgeNode1.setFrom(fromTo.get(0));
             edgeNode1.setTo(fromTo.get(1));
             finalPath.append(addressService.readById(fromTo.get(1)).shortAddress());
             finalPath.append("---->");
-            if (transportType.equals(TransportType.TRANSPORT)){
-            finalPath.append(edgeService.read(edgeNode1).getBusses());}
+            if (transportType.equals(TransportType.TRANSPORT)) {
+                finalPath.append(edgeService.read(edgeNode1).getBusses());
+            }
 
         }
         return finalPath.toString();
     }
 
-    public void showPath(){
+    public void showPath() {
         String pathDisplay = getDetailPath();
         System.out.println("Final path :" + pathDisplay);
     }
